@@ -186,7 +186,8 @@ button:focus {
     background-color: white;
     padding: 1rem 1.5rem;
     width: 40%;
-    height: 60%;
+    min-width: 250px;
+    height: 600px;
     border-radius: 0.5rem;
 }
 

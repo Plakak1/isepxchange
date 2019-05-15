@@ -1,12 +1,14 @@
 package gl.model;
 
+import java.util.List;
+
 public class University {
 	private int id;
 	private String name;
 	private String city;
 	private String country;
-	private String language;
-	private String field;
+	private List<String> language;
+	private List<String> field;
 	private String url;
 	private int quota;
 	private String description;
@@ -43,19 +45,19 @@ public class University {
 		return this.country = country;
 	}
 
-	public String getLanguage() {
+	public List<String> getLanguage() {
 		return this.language;
 	}
 
-	public String setLanguage(String language) {
+	public List<String> setLanguage(List<String> language) {
 		return this.language = language;
 	}
 
-	public String getField() {
+	public List<String> getField() {
 		return this.field;
 	}
 
-	public String setField(String field) {
+	public List<String> setField(List<String> field) {
 		return this.field = field;
 	}
 
