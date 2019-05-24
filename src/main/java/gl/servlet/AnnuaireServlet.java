@@ -54,19 +54,23 @@ public class AnnuaireServlet extends HttpServlet {
 			ResultSet rs = DbDao.getStudentList(column, filter);
 			while (rs.next()) {
 		         Student stud = new Student();
-		         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
-		         cal.setTime(rs.getDate(7));
+		         if (rs.getDate(7) != null) {
+			         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+			         cal.setTime(rs.getDate(7));
+			         stud.setYear(Integer.toString(cal.get(Calendar.YEAR)));
+		         } else {
+		        	 stud.setYear("N/A");
+		         }
+
 
 		         stud.setId(rs.getInt(1));
 		         stud.setFirstName(rs.getString(2));
 		         stud.setLastName(rs.getString(3));
 		         stud.setMail(rs.getString(4));
-		         stud.setIdExchange(rs.getInt(5));
 		         stud.setStartDate(rs.getDate(7));
 		         stud.setEndDate(rs.getDate(8));
-		         stud.setYear(Integer.toString(cal.get(Calendar.YEAR)));
-		         stud.setUniversityName(rs.getString(11));
-		         stud.setUniversityCountry(rs.getString(12));
+		         stud.setUniversityName(rs.getString(5));
+		         stud.setUniversityCountry(rs.getString(6));
 		         list.add(stud);
 		      }
 		} catch(Exception exObj) {

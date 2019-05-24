@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import gl.model.University;
 
 @WebServlet(name = "getUniversitiesServlet", urlPatterns = "")
@@ -89,7 +91,7 @@ public class DbDemo extends HttpServlet {
 				
 				while (fieldList.next()) {
 					if (fieldList.getInt(1) == rs.getInt(1)) {
-						domList.add(fieldList.getString(2));
+						domList.add(StringEscapeUtils.escapeHtml4(fieldList.getString(2)));
 					}
 				}
 				

@@ -1,5 +1,6 @@
 <%@ page import="java.util.*" %>
 <%@ page import="gl.model.University" %>
+<%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
 
 <%@ page contentType="text/html; charset=UTF-8" %>
 
@@ -91,7 +92,6 @@
 	} else {
 		languageList.add((String) request.getAttribute("selectedLanguage"));
 	}
-	
 %>
 
 <!DOCTYPE html>
@@ -133,33 +133,27 @@
     <input name="currentTab" value="1" type="hidden">
     <input type="text" placeholder="Sélectionner un pays" name="countryParam" list="country">
     <datalist id="country">
-        <% 
-		for(String myCountry: fullCountryList){
-	      	 out.println("<option type='submit' value=" + "'" +  myCountry + "'" + ">");
-	     }
-         %>
+        <% for(String myCountry: fullCountryList){ %>
+			<option type="submit" value="<% out.println(myCountry); %>"> <% out.println(myCountry); %> </option>
+	    <% } %>
     </datalist>
     </form>
     <form id="fieldForm" method="post" action="">
     <input name="currentTab" value="2" type="hidden">
     <input type="text" placeholder="Sélectionner un domaine" name="fieldParam" list="field">
     <datalist id="field">
-        <% 
-		for(String myField: allFields){
-	      	 out.println("<option type='submit' value=" + "'" + myField + "'" + ">");
-	     }
-         %>
+    	<% for(String myField: allFields){ %>
+			<option type="submit" value="<% out.println(myField); %>"> <% out.println(myField); %> </option>
+	    <% } %>
     </datalist>
     </form>
     <form id="languageForm" method="post" action="">
     <input name="currentTab" value="3" type="hidden">
     <input type="text" placeholder="Sélectionner une langue" name="languageParam" list="language">
     <datalist id="language">
-        <% 
-		for(String myLanguage: allLanguages){
-	      	 out.println("<option type='submit' value=" + "'" +  myLanguage + "'" + ">");
-	     }
-         %>
+    	<% for(String myLanguage: allLanguages){ %>
+			<option type="submit" value="<% out.println(myLanguage); %>"> <% out.println(myLanguage); %> </option>
+	    <% } %>
     </datalist>
     </form>
   </div>

@@ -13,6 +13,13 @@
 	List<Student> fullStudentList = new ArrayList();
 	fullStudentList = (List<Student>) request.getAttribute("allStudents");
 	
+	List<String> fullCountryList = new ArrayList();
+	for (int i = 0; i < fullStudentList.size(); i++) {
+		if (!fullCountryList.contains(fullStudentList.get(i).getUniversityCountry())) {
+			fullCountryList.add(fullStudentList.get(i).getUniversityCountry());
+		}
+	}
+	
 	Collections.sort(fullStudentList, compareByUniversityCountry);
 %>
 
@@ -36,9 +43,13 @@
   </div>
   
   <div class="navBar">
-    <span id="filterNavBarStudent" onclick="selectedStudentFilter(1)">Par pays</span>
+  	<form method="post" action="">
+  	<button name="currentTab" value="1" type="submit">Par pays</button>
+    </form>
     <span class="vertLine"></span>
-    <span id="filterNavBarStudent" onclick="selectedStudentFilter(2)">Par nouveauté</span>
+    <form method="post" action="">
+  	<button name="currentTab" value="2" type="submit">Par nouveauté</button>
+    </form>
   </div>
   
   <div class="dropDown" id="myDropdownStudent">
@@ -46,8 +57,8 @@
     <input type="text" placeholder="Sélectionner un pays" name="studentCountryParam" list="studentCountry">
     <datalist id="studentCountry">
         <% 
-		for(Student myStud: fullStudentList){
-	      	 out.println("<option type='submit' value=" +  myStud.getUniversityCountry() + ">");
+		for(String myCountry: fullCountryList){
+	      	 out.println("<option type='submit' value=" + myCountry + ">");
 	     }
          %>
     </datalist>

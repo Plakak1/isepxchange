@@ -16,7 +16,7 @@ public class DbDao {
 	private static Connection connectDb() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange2?useSSL=false", "root", "password");
+			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange?useSSL=false", "root", "password");
 		} catch (Exception exObj) {
 			exObj.printStackTrace();
 		}
@@ -28,7 +28,7 @@ public class DbDao {
 		if (filter.length() != 0) {
 			try {
 				stmtObj = connectDb().createStatement();
-				String sql = "SELECT * from isepxchange2.university WHERE country = '" + filter + "';";
+				String sql = "SELECT * from isepxchange.university WHERE country = '" + filter + "';";
 				
 				if (column.equals("language")) {
 					sql = "SELECT UNIVERSITY.ID, UNIVERSITY.NAME, UNIVERSITY.CITY, UNIVERSITY.COUNTRY, " + 
@@ -52,7 +52,7 @@ public class DbDao {
 			try {
 				stmtObj = connectDb().createStatement();
 
-				String sql = "SELECT * FROM isepxchange2.university";
+				String sql = "SELECT * FROM isepxchange.university";
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
 				exObj.printStackTrace();
@@ -100,7 +100,7 @@ public class DbDao {
 			try {
 				stmtObj = connectDb().createStatement();
 
-				String sql = "SELECT NAME from isepxchange2.LANGUAGE;";
+				String sql = "SELECT NAME from isepxchange.LANGUAGE;";
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
 				exObj.printStackTrace();
@@ -113,7 +113,7 @@ public class DbDao {
 			try {
 				stmtObj = connectDb().createStatement();
 
-				String sql = "SELECT NAME from isepxchange2.DOMAIN;";
+				String sql = "SELECT NAME from isepxchange.DOMAIN;";
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
 				exObj.printStackTrace();
@@ -126,7 +126,7 @@ public class DbDao {
 		try {
 			stmtObj = connectDb().createStatement();
 
-			String sql = "INSERT INTO isepxchange2.student (firstname, lastname, mail, id_exchange) VALUES (" + firstName + ", " + lastName + ", "
+			String sql = "INSERT INTO isepxchange.student (firstname, lastname, mail, id_exchange) VALUES (" + firstName + ", " + lastName + ", "
 					+ mail + ", " + idExchange + ")";
 			rsObj = stmtObj.executeQuery(sql);
 		} catch (Exception exObj) {
@@ -140,8 +140,11 @@ public class DbDao {
 			try {
 				stmtObj = connectDb().createStatement();
 
-				String sql = "SELECT * FROM isepxchange2.student INNER JOIN isepxchange2.echange INNER JOIN isepxchange2.university ON "
-						+ "isepxchange2.student.id_Exchange = isepxchange2.echange.id AND isepxchange2.echange.id_University = isepxchange2.university.id;";
+				String sql = "SELECT student.ID, student.FIRSTNAME, student.LASTNAME, student.MAIL, university.NAME, university.COUNTRY, " + 
+						"student_exchange.START_DATE, student_exchange.END_DATE, " + 
+						"university.URL FROM isepxchange.student INNER JOIN isepxchange.student_exchange INNER JOIN isepxchange.university ON "
+						+ "isepxchange.student_exchange.id_University = isepxchange.university.id "
+						+ "AND isepxchange.student_exchange.ID_STUDENT = isepxchange.student.id;";
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
 				exObj.printStackTrace();
@@ -150,7 +153,7 @@ public class DbDao {
 			try {
 				stmtObj = connectDb().createStatement();
 
-				String sql = "SELECT * FROM isepxchange2.student";
+				String sql = "SELECT * FROM isepxchange.student";
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
 				exObj.printStackTrace();
@@ -166,7 +169,7 @@ public class DbDao {
 			try {
 				stmtObj = connectDb().createStatement();
 
-				String sql = "SELECT * FROM isepxchange2.exchange WHERE " + column + " = "  + "'" + filter + "'";
+				String sql = "SELECT * FROM isepxchange.student_exchange WHERE " + column + " = "  + "'" + filter + "'";
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
 				exObj.printStackTrace();
@@ -175,7 +178,7 @@ public class DbDao {
 			try {
 				stmtObj = connectDb().createStatement();
 
-				String sql = "SELECT * FROM isepxchange2.exchange";
+				String sql = "SELECT * FROM isepxchange.student_exchange";
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
 				exObj.printStackTrace();
