@@ -16,7 +16,7 @@ public class DbDao {
 	private static Connection connectDb() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange?useSSL=false", "root", "password");
+			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange?useSSL=false", "root", "");
 		} catch (Exception exObj) {
 			exObj.printStackTrace();
 		}
@@ -131,6 +131,18 @@ public class DbDao {
 			rsObj = stmtObj.executeQuery(sql);
 		} catch (Exception exObj) {
 				exObj.printStackTrace();
+		}
+	}
+
+	/***** Method #2 :: This Method Is Used To Insert The Records In The Database *****/
+	public static void insertComment(String actualDate, String commentContent, String author_firstname, String author_lastname, String author_mail, String id_university) {
+		try {
+			stmtObj = connectDb().createStatement();
+			String query = "INSERT INTO isepxchange.comment(creation_date, content, author_firstname, author_lastname, author_mail, accepted, id_university)"+
+					" VALUES ('"+actualDate+"','"+commentContent+"','"+author_firstname+"','"+author_lastname+"','"+author_mail+"', FALSE,'"+id_university+"')";
+			stmtObj.executeUpdate(query);
+		} catch (Exception exObj) {
+			exObj.printStackTrace();
 		}
 	}
 	

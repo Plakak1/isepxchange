@@ -62,12 +62,14 @@ function studentListLoading(currentTab) {
 }
 
 
-function shareComment(uniName) {
-  var modal = document.getElementById("commentModal");
-  modal.classList.toggle("show-modal");
-  
-  var modalUniTitle = document.getElementById("modalUniversityTitle");
-  modalUniTitle.innerHTML = "Université " + uniName;
+function shareComment(uniName, uniId) {
+	var modal = document.getElementById("commentModal");
+	modal.classList.toggle("show-modal");
+
+	var modalUniTitle = document.getElementById("modalUniversityTitle");
+	modalUniTitle.innerHTML = "Université " + uniName;
+
+	document.getElementById("id_uni").value = uniId;
 }
 
 function closeModal() {
@@ -81,8 +83,6 @@ window.onclick = function(event) {
     modal.classList = "modal";
   }
 }
-
-
 
 function changeComment() {
     document.getElementById("commentTextArea").value = "Test";
