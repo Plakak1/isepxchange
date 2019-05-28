@@ -41,7 +41,14 @@ public class AnnuaireServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("allStudents", getStudentList(request, response, "", "length"));
+		String uniFilterCountry = request.getParameter("studentCountryParam");
+		
+		if (uniFilterCountry != null) {
+			request.setAttribute("studentsFilteredByCountry", getStudentList(request, response, "", uniFilterCountry));
+		}
+		
+		request.setAttribute("allStudents", getStudentList(request, response, "", ""));
+		
 		RequestDispatcher view = request.getRequestDispatcher("annuaire.jsp");
         view.forward(request, response);
 	}

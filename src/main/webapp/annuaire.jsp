@@ -13,6 +13,12 @@
 	List<Student> fullStudentList = new ArrayList();
 	fullStudentList = (List<Student>) request.getAttribute("allStudents");
 	
+	List<Student> studentListFilteredByCountry = new ArrayList<>();
+	studentListFilteredByCountry = (List<Student>) request.getAttribute("studentsFilteredByCountry");
+	if (studentListFilteredByCountry == null) {
+		studentListFilteredByCountry = fullStudentList;
+	}
+	
 	List<String> fullCountryList = new ArrayList();
 	for (int i = 0; i < fullStudentList.size(); i++) {
 		if (!fullCountryList.contains(fullStudentList.get(i).getUniversityCountry())) {
@@ -79,7 +85,7 @@
       <button class="studentListButton" type="submit">Liste des universités</button>
   </form>
   
-  <% for(Student myStudent: fullStudentList){ %>
+  <% for(Student myStudent: studentListFilteredByCountry){ %>
   <div class="annuaireStudentList">
   <div class="annuaireStudentInfo">
   	  <h2>Informations sur l'étudiant</h2>

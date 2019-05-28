@@ -144,7 +144,8 @@ public class DbDao {
 						"student_exchange.START_DATE, student_exchange.END_DATE, " + 
 						"university.URL FROM isepxchange.student INNER JOIN isepxchange.student_exchange INNER JOIN isepxchange.university ON "
 						+ "isepxchange.student_exchange.id_University = isepxchange.university.id "
-						+ "AND isepxchange.student_exchange.ID_STUDENT = isepxchange.student.id;";
+						+ "AND isepxchange.student_exchange.ID_STUDENT = isepxchange.student.id "
+						+ "WHERE isepxchange.university.country = '" + filter + "';";
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
 				exObj.printStackTrace();
@@ -153,7 +154,11 @@ public class DbDao {
 			try {
 				stmtObj = connectDb().createStatement();
 
-				String sql = "SELECT * FROM isepxchange.student";
+				String sql = "SELECT student.ID, student.FIRSTNAME, student.LASTNAME, student.MAIL, university.NAME, university.COUNTRY, " + 
+						"student_exchange.START_DATE, student_exchange.END_DATE, " + 
+						"university.URL FROM isepxchange.student INNER JOIN isepxchange.student_exchange INNER JOIN isepxchange.university ON "
+						+ "isepxchange.student_exchange.id_University = isepxchange.university.id "
+						+ "AND isepxchange.student_exchange.ID_STUDENT = isepxchange.student.id;";
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
 				exObj.printStackTrace();
