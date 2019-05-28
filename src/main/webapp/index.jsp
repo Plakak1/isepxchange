@@ -178,15 +178,15 @@
 			<div class="contentCategory">
         		<div class="university">
             	<div class="universityName">
-         			<% out.println("<span> Université " + myUni.getName() + "</span>");%>
+         			<% out.println("<span>"+ myUni.getName() + "</a></b></span>");%>
                 	<span class="horiLine"></span>
             	</div>
            		<div class="universityInfo">
             		<% out.println("<span> Localisation : " + myUni.getCountry() + ", " + myUni.getCity() + "</span>");%>
-            		<% for(String language : myUni.getLanguage()) { 
+            		<% for(String language : myUni.getLanguage()) {
             			out.println("<span> Langue : " + language + "</span>");
             		} %>
-            		<% for(String field : myUni.getField()) { 
+            		<% for(String field : myUni.getField()) {
             			out.println("<span> Domaine : " + field + "</span>");
             		} %>
                 	<% if (myUni.getDescription() != null) {
@@ -196,7 +196,7 @@
             	</div>
             	<div class="commentSection">
                 	<span>Commentaires</span>
-                	<button onclick="shareComment(`<% out.println(myUni.getName()); %>`)">Partager mon expérience</button>
+                	<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
             	</div>
         	</div>
     	</div>
@@ -204,9 +204,9 @@
 		<% } %>
 	<% } %>
     </div>
-  
+
    <div class="content" id="myContentField">
-    <% 
+    <%
 	for(String myField: fieldList){
 		out.println("<span class='categoryTitle'>" + myField + "</span>"); %>
 		<% for(University myUni: uniListFilteredByChoiceField) {
@@ -214,7 +214,7 @@
 			<div class="contentCategory">
         		<div class="university">
             	<div class="universityName">
-         			<% out.println("<span> Université " + myUni.getName() + "</span>");%>
+                    <% out.println("<span>"+ myUni.getName() + "</a></b></span>");%>
                 	<span class="horiLine"></span>
             	</div>
            		<div class="universityInfo">
@@ -230,7 +230,7 @@
             	</div>
             	<div class="commentSection">
                 	<span>Commentaires</span>
-                	<button onclick="shareComment(`<% out.println(myUni.getName()); %>`)">Partager mon expérience</button>
+                	<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
             	</div>
         	</div>
     	</div>
@@ -238,9 +238,9 @@
 		<% } %>
 	<% } %>
     </div>
-  
+
   <div class="content" id="myContentLanguage">
-    <% 
+    <%
 	for(String myLanguage: languageList){
 		out.println("<span class='categoryTitle'>" + myLanguage + "</span>"); %>
 		<% for(University myUni: uniListFilteredByChoiceLanguage) {
@@ -248,7 +248,7 @@
 			<div class="contentCategory">
         		<div class="university">
             	<div class="universityName">
-         			<% out.println("<span> Université " + myUni.getName() + "</span>");%>
+                    <% out.println("<span>"+ myUni.getName() + "</a></b></span>");%>
                 	<span class="horiLine"></span>
             	</div>
            		<div class="universityInfo">
@@ -264,7 +264,7 @@
             	</div>
             	<div class="commentSection">
                 	<span>Commentaires</span>
-                	<button onclick="shareComment(`<% out.println(myUni.getName()); %>`)">Partager mon expérience</button>
+                	<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
             	</div>
         	</div>
     	</div>
@@ -279,25 +279,26 @@
 			<span class="close-button" onclick="closeModal()">×</span> 
 			<span class="modalTitle">Partager mon expérience</span>
 			<span id="modalUniversityTitle">Université</span>
-			<form  method="post" action="">
+			<form  method="post" action="CommentServlet" id="addComment">
 				<div class="comment">
 					<span class="modalTitle2">Commentaire</span>
-					<textarea id="commentTextArea" name="comContent" class="writtenCom" maxlength="255">Commentaire</textarea>
+					<textarea id="commentTextArea" name="comContent" form="addComment" class="writtenCom" maxlength="255">Commentaire</textarea>
 				</div>
 				<div class="studentInfo">
 					<span class="modalTitle2">Information</span>
 					<div>
-						<label for="lastName">Prénom*:</label> <input type="text" name="firstName"
-							name="studentLastName" required maxlength="45">
-					</div>
-					<div>
-						<label for="firstName">Nom*:</label> <input type="text" name="lastName"
+						<label for="firstName">Prénom*:</label> <input type="text" id="firstName"
 							name="studentFirstName" required maxlength="45">
 					</div>
 					<div>
-						<label for="mail">Mail*:</label> <input type="email" name="mail"
+						<label for="lastName">Nom*:</label> <input type="text" id="lastName"
+							name="studentLastName" required maxlength="45">
+					</div>
+					<div>
+						<label for="mail">Mail*:</label> <input type="email" id="mail"
 							name="studentMail" required maxlength="45">
 					</div>
+					<input type="hidden" value="" id="id_uni" name="id_university">
 					<button id="sendButton" type="submit">Envoyer</button>
 				</div>
 			</form>
