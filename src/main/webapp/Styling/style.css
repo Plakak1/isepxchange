@@ -227,7 +227,7 @@ button:focus {
     padding-bottom: 4px;
 }
 
-#modalUniversityTitle {
+#modalUniversityTitle, #warninigUniversityTitle {
     text-align: center;
     font-size: 24px;
     font-weight: bold;
@@ -286,7 +286,7 @@ button:focus {
     margin-top: 3px;
 }
 
-.studentInfo div input {
+.studentInfo div input,select {
     width: 65%;
     height: 25px;
     font-size: 16px;

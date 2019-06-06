@@ -77,12 +77,14 @@ function closeModal() {
     modal.classList = "modal";
   }
 
-function sendWarning(uniName){
+function sendWarning(uniName, uniId){
 	var modal = document.getElementById("warningModal");
 	modal.classList.toggle("show-modal");
 	
 	var modalUniTitle = document.getElementById("warningUniversityTitle");
 	warningUniversityTitle.innerHTML = "Université " + uniName;
+	
+	document.getElementById("id_uni_alert").value = uniId;
 }
 
 function closeWarning() {
