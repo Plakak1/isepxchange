@@ -77,6 +77,19 @@ function closeModal() {
     modal.classList = "modal";
   }
 
+function sendWarning(uniName){
+	var modal = document.getElementById("warningModal");
+	modal.classList.toggle("show-modal");
+	
+	var modalUniTitle = document.getElementById("warningUniversityTitle");
+	warningUniversityTitle.innerHTML = "Université " + uniName;
+}
+
+function closeWarning() {
+    var modal = document.getElementById("warningModal");
+    modal.classList = "modal";
+ }
+
 window.onclick = function(event) {
   var modal = document.getElementById("commentModal");
   if (event.target == modal) {

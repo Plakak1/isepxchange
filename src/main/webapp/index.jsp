@@ -196,7 +196,11 @@
             	</div>
             	<div class="commentSection">
                 	<span>Commentaires</span>
-                	<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+                	<div class="uniButtons">
+                		<div class="invisibleButton"></div>
+                		<button class="shareButton" onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+                		<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`)">Signaler</button>
+                	</div>
             	</div>
         	</div>
     	</div>
@@ -231,6 +235,7 @@
             	<div class="commentSection">
                 	<span>Commentaires</span>
                 	<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+                	<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`)">Signaler</button>
             	</div>
         	</div>
     	</div>
@@ -265,6 +270,7 @@
             	<div class="commentSection">
                 	<span>Commentaires</span>
                 	<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+                	<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`)">Signaler</button>
             	</div>
         	</div>
     	</div>
@@ -305,6 +311,36 @@
 		</div>
 	</div>
 
+	<div id="warningModal" class="modal">
+		<div class="modal-content">
+			<span class="close-button" onclick="closeWarning()">×</span> 
+			<span class="modalTitle">Signaler</span>
+			<span id="warningUniversityTitle">Université</span>
+			<form  method="post" action="">
+				<div class="studentInfo">
+				<span class="modalTitle2">Rapport</span><br/>
+					<div>
+						<label for="mail">Mail*:</label> <input type="email" name="mail"
+								name="studentMail" required maxlength="45">
+					</div>
+					<div>
+						<label for="reason">Raison:</label>
+						<select>
+							<option value="abscence">Manque d'information</option>
+							<option value="fault">Information mauvaise ou erronée</option>
+							<option value="other">Autre</option>
+						</select>
+					</div>
+					<br/>
+					<label for="comContent">Description du problème :</label>
+					<textarea id="commentTextArea" name="comContent" class="writtenCom" maxlength="255"></textarea>
+				</div>
+				<div class="studentInfo">
+					<button id="sendButton" type="submit">Envoyer</button>
+				</div>
+			</form>
+		</div>
+	</div>
 
 </body>
 </html>

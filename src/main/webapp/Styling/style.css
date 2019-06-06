@@ -248,6 +248,27 @@ button:focus {
     padding-left: 5px;
 }
 
+ .warningButton {
+	width: 77px;
+	margin-right: 15px;
+	margin-left: 0px;
+}
+
+.shareButton {
+	 margin: auto;
+}
+
+.invisibleButton {
+	width: 77px;
+	margin-left: 15px;
+}
+
+.uniButtons {
+	display: flex;
+	flex-direction: row !important;
+	justify-content: space-between;
+}
+
 .studentInfo div {
     display: flex;
     flex-direction: row;
