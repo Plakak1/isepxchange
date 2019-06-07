@@ -16,6 +16,18 @@
   	<description></description>
   	<servlet-class>gl.servlet.UniListServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AdminServlet</servlet-name>
+  	<display-name>AdminServlet</display-name>
+  	<description></description>
+  	<servlet-class>gl.servlet.AdminServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>NotificationServlet</servlet-name>
+  	<display-name>NotificationServlet</display-name>
+  	<description></description>
+  	<servlet-class>gl.servlet.NotificationServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>AnnuaireServlet</servlet-name>
   	<url-pattern>/AnnuaireServlet</url-pattern>
@@ -23,5 +35,13 @@
   <servlet-mapping>
   	<servlet-name>UniListServlet</servlet-name>
   	<url-pattern>/UniListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AdminServlet</servlet-name>
+  	<url-pattern>/AdminServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>NotificationServlet</servlet-name>
+  	<url-pattern>/NotificationServlet</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import gl.model.Student;
 import gl.model.University;
 
-@WebServlet(name = "getStudentListServlet", urlPatterns = "/Annuaire")
+@WebServlet(name = "StudentListServlet", urlPatterns = "/Annuaire")
 public class AnnuaireServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

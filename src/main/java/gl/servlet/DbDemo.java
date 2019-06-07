@@ -33,6 +33,7 @@ public class DbDemo extends HttpServlet {
 		request.setAttribute("allLanguages", getAllLanguages(request, response));
 		request.setAttribute("allFields", getAllFields(request, response));
 		request.setAttribute("currentTab", "1");
+		request.setAttribute("allComments", getComment());
         RequestDispatcher view = request.getRequestDispatcher("index.jsp");
         view.forward(request, response);
 	}
@@ -66,16 +67,26 @@ public class DbDemo extends HttpServlet {
 		request.setAttribute("allFields", getAllFields(request, response));
 		request.setAttribute("allComments", getComment());
 		
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		String mail = request.getParameter("mail");
-		String idExchange = request.getParameter("exchangeTypeParam");
-
-		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-        view.forward(request, response);
+		String username = request.getParameter("userName");  
+	    String password = request.getParameter("password");
+	    
+	    if (username != null) {   	
+			if (DbDao.validate(username, password)){  
+				RequestDispatcher view = request.getRequestDispatcher("adminIndex.jsp");
+		        view.forward(request, response);
+		    }  
+		    else {
+		    	request.setAttribute("loginErrorMessage", "La connexion a échoué");
+		    	RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+		        view.forward(request, response); 
+		    } 
+	    } else {
+	    	RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+	        view.forward(request, response);
+	    }	
 }
 	
-	public List<University> getUniversities	(HttpServletRequest request, HttpServletResponse response, String column, String filter) throws IOException, ServletException {
+	public static List<University> getUniversities	(HttpServletRequest request, HttpServletResponse response, String column, String filter) throws IOException, ServletException {
 
 		List<University> list = new ArrayList();
 		 
@@ -122,7 +133,7 @@ public class DbDemo extends HttpServlet {
 		return list;
 	}
 	
-	public List<String> getAllLanguages	(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public static List<String> getAllLanguages	(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		List<String> list = new ArrayList();
 		 
 		try {
@@ -138,7 +149,7 @@ public class DbDemo extends HttpServlet {
 		return list;
 	}
 	
-	public List<String> getAllFields (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public static List<String> getAllFields (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		List<String> list = new ArrayList();
 		 
 		try {
