@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import gl.model.Comment;
 import gl.model.University;
 
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
@@ -63,6 +64,7 @@ public class DbDemo extends HttpServlet {
 		
 		request.setAttribute("allLanguages", getAllLanguages(request, response));
 		request.setAttribute("allFields", getAllFields(request, response));
+		request.setAttribute("allComments", getComment());
 		
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
@@ -152,16 +154,26 @@ public class DbDemo extends HttpServlet {
 		return list;
 	}
 	
-	public void postComment	(HttpServletRequest request, HttpServletResponse response, String firstName, String lastName, 
-			String mail, int idExchange) throws IOException, ServletException {
-		 
-		try {
-		DbDao.postComment(firstName, lastName, mail, idExchange);
-
-		} catch(Exception exObj) {
-			exObj.printStackTrace();
-		} finally {
-			DbDao.disconnectDb();
-		}
-	}
+	public static List<Comment> getComment(){
+        List<Comment> commentList = new ArrayList();
+        try{
+            ResultSet commentsRS = DbDao.getComments();
+            while(commentsRS.next()){
+                Comment comment = new Comment();
+                comment.setId(commentsRS.getInt(1));
+                comment.setCreation_date(commentsRS.getString(2));
+                comment.setContent(commentsRS.getString(3));
+                comment.setAuthor_firstname(commentsRS.getString(4));
+                comment.setAuthor_lastname(commentsRS.getString(5));
+                comment.setAuthor_mail(commentsRS.getString(6));
+                comment.setAccepted(commentsRS.getBoolean(7));
+                comment.setId_university(commentsRS.getInt(8));
+                commentList.add(comment);
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+        return commentList;
+    }
+	
 }

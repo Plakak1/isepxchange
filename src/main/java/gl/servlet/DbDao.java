@@ -16,7 +16,7 @@ public class DbDao {
 	private static Connection connectDb() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange?useSSL=false", "root", "");
+			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange?useSSL=false", "root", "password");
 		} catch (Exception exObj) {
 			exObj.printStackTrace();
 		}
@@ -120,19 +120,6 @@ public class DbDao {
 			}
 		return rsObj;
 	}
-	
-	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
-	public static void postComment(String firstName, String lastName, String mail, int idExchange) {
-		try {
-			stmtObj = connectDb().createStatement();
-
-			String sql = "INSERT INTO isepxchange.student (firstname, lastname, mail, id_exchange) VALUES (" + firstName + ", " + lastName + ", "
-					+ mail + ", " + idExchange + ")";
-			rsObj = stmtObj.executeQuery(sql);
-		} catch (Exception exObj) {
-				exObj.printStackTrace();
-		}
-	}
 
 	/***** Method #2 :: This Method Is Used To Insert The Records In The Database *****/
 	public static void insertComment(String actualDate, String commentContent, String author_firstname, String author_lastname, String author_mail, String id_university) {
@@ -151,7 +138,6 @@ public class DbDao {
 			stmtObj = connectDb().createStatement();
 			String query = "SELECT * FROM ISEPXCHANGE.COMMENT";
 			rsObj = stmtObj.executeQuery(query);
-			System.out.println(rsObj);
 		} catch (Exception exception){
 			exception.printStackTrace();
 		}

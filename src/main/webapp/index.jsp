@@ -21,10 +21,13 @@
 	
 	List<String> allLanguages = new ArrayList();
 	List<String> allFields = new ArrayList();
+	
+	List<Comment> allComments = new ArrayList();
 
 	uniListFilteredByCountry = (List<University>) request.getAttribute("allUniversities");
 	allLanguages = (List<String>) request.getAttribute("allLanguages");
 	allFields = (List<String>) request.getAttribute("allFields");
+	allComments = (List<Comment>) request.getAttribute("allComments");
 	
 	uniListFilteredByField.addAll(uniListFilteredByCountry);
 	uniListFilteredByLanguage.addAll(uniListFilteredByCountry);
@@ -203,11 +206,13 @@
 								</div>
 								<div class="commentSection">
 									<span>Commentaires</span>
-									<% for(Comment com: CommentServlet.getComment()){
-										if(com.getId_university()== myUni.getId() && com.isAccepted()){
-											out.println(CommentServlet.displayComment(com));
-										}
-									}%>
+									<% if (allComments != null){
+                                    	for(Comment com: allComments){
+                                            if(com.getId_university()== myUni.getId() && com.isAccepted()){
+                                                out.println(CommentServlet.displayComment(com));
+                                            }
+                                        }
+                                    } %>
 									<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
 								</div>
 							</div>
@@ -259,11 +264,13 @@
             					</div>
             					<div class="commentSection">
                 					<span>Commentaires</span>
-                                    <% for(Comment com: CommentServlet.getComment()){
-                                        if(com.getId_university()== myUni.getId() && com.isAccepted()){
-											out.println(CommentServlet.displayComment(com));
+                                    <% if (allComments != null){
+                                    	for(Comment com: allComments){
+                                            if(com.getId_university()== myUni.getId() && com.isAccepted()){
+                                                out.println(CommentServlet.displayComment(com));
+                                            }
                                         }
-                                    }%>
+                                    } %>
                 					<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
             					</div>
         					</div>
@@ -315,11 +322,13 @@
             					</div>
             					<div class="commentSection">
                 					<span>Commentaires</span>
-                                    <% for(Comment com: CommentServlet.getComment()){
-                                        if(com.getId_university()== myUni.getId() && com.isAccepted()){
-                                            out.println(CommentServlet.displayComment(com));
+                                    <% if (allComments != null){
+                                    	for(Comment com: allComments){
+                                            if(com.getId_university()== myUni.getId() && com.isAccepted()){
+                                                out.println(CommentServlet.displayComment(com));
+                                            }
                                         }
-                                    }%>
+                                    } %>
                 					<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
             					</div>
         					</div>
