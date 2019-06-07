@@ -145,6 +145,18 @@ public class DbDao {
 			exObj.printStackTrace();
 		}
 	}
+
+	public static ResultSet getComments(){
+		try {
+			stmtObj = connectDb().createStatement();
+			String query = "SELECT * FROM ISEPXCHANGE.COMMENT";
+			rsObj = stmtObj.executeQuery(query);
+			System.out.println(rsObj);
+		} catch (Exception exception){
+			exception.printStackTrace();
+		}
+		return rsObj;
+	}
 	
 	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
 	public static ResultSet getStudentList(String column, String filter) {

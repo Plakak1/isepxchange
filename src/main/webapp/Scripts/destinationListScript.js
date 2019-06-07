@@ -67,7 +67,7 @@ function shareComment(uniName, uniId) {
 	modal.classList.toggle("show-modal");
 
 	var modalUniTitle = document.getElementById("modalUniversityTitle");
-	modalUniTitle.innerHTML = "Université " + uniName;
+	modalUniTitle.innerHTML = uniName;
 
 	document.getElementById("id_uni").value = uniId;
 }

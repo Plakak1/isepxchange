@@ -18,6 +18,8 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import gl.model.University;
 
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
+
 @WebServlet(name = "getUniversitiesServlet", urlPatterns = "")
 public class DbDemo extends HttpServlet {
 
@@ -82,7 +84,7 @@ public class DbDemo extends HttpServlet {
 			while (rs.next()) {
 				List<String> langList = new ArrayList();
 				List<String> domList = new ArrayList();
-				
+
 				while (languageList.next()) {
 					if (languageList.getInt(1) == rs.getInt(1)) {
 						langList.add(languageList.getString(2));
