@@ -9,7 +9,7 @@ public class University {
 	private String country;
 	private List<String> language;
 	private List<String> field;
-	private String url;
+    private String url;
 	private int quota;
 	private String description;
 	
@@ -61,7 +61,7 @@ public class University {
 		return this.field = field;
 	}
 
-	public String getUrl() {
+    public String getUrl() {
 		return this.url;
 	}
 
@@ -83,5 +83,10 @@ public class University {
 
 	public String setDescription(String description) {
 		return this.description = description;
+	}
+
+	public String getListString(List<String> list){
+		String fieldlist = list.toString();
+		return fieldlist.substring(1, fieldlist.length()-1);
 	}
 }

@@ -15,8 +15,6 @@
 	
 	// *** Separation Comparators and the university lists ***
 	
-	String errorMessage = (String) request.getAttribute("loginErrorMessage");
-	
 	List<University> uniListFilteredByCountry = new ArrayList();
 	List<University> uniListFilteredByField = new ArrayList();
 	List<University> uniListFilteredByLanguage = new ArrayList();
@@ -49,7 +47,7 @@
 
 	// *** Separation beteween full university lists above, and filtered ones below ***
 	
-	String tab = (String) request.getAttribute("currentTab");
+	String tab = (String) request.getAttribute("currentTab");;
 	int currentTab = Integer.valueOf(tab);
 	
 	List<University> uniListFilteredByChoiceCountry = new ArrayList();
@@ -111,16 +109,16 @@
   		<h1>Liste des destinations</h1>
 
   		<div class="searchBar">
-            <form method="post" action="/GL/Annuaire" class="changebutton">
-                <button class="studentListButton" type="submit">Annuaire des étudiants</button>
+            <form method="post" action="/GL/Notification" class="changebutton">
+                <button class="studentListButton" type="submit">Notifications</button>
             </form>
 			<div class="searchbaricon">
     			<input type="text" placeholder="Rechercher...">
     			<i class="fas fa-search"></i>
 			</div>
-			<div>
-                <button onclick="login()" class="studentListButton">Connexion</button>
-            </div>
+			<form method="post" action="/GL" class="changebutton">
+                <button class="studentListButton" type="submit">Déconnexion</button>
+            </form>
   		</div>
 
   		<div class="navBar">
@@ -135,12 +133,6 @@
     		<form method="post" action="">
   				<button name="currentTab" value="3" type="submit">Par langue</button>
     		</form>
-  		</div>
-  		
-  		<div class="loginErrorMessage">
-  			<% if (errorMessage != null) {
-  				out.println(errorMessage); 
-  			} %>
   		</div>
 
   		<div class="dropDown" id="myDropdown">
@@ -173,7 +165,7 @@
     		</form>
   		</div>
 
-  		<div class="content" id="myContentCountry">
+    	<div class="content" id="myContentCountry">
     		<% for(String myCountry: countryList){
     			out.println("<h2 class='categorytitle'>" + myCountry + "</h2>"); %>
 				<% for(University myUni: uniListFilteredByChoiceCountry) {
@@ -224,7 +216,7 @@
                                             }
                                         }
                                     } %>
-									<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+									<button onclick="updateUniversityInfo(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Modifier les informations</button>
 								</div>
 							</div>
 						</div>
@@ -349,26 +341,22 @@
 			<% } %>
     	</div>
 
-		<div id="commentModal" class="modal">
+		<div id="adminUpdateUniversityModal" class="modal">
 			<div class="modal-content">
-				<span class="close-button" onclick="closeModal()">×</span>
+				<span class="close-button" onclick="closeAdminModal()">×</span>
 				<span class="modalTitle">Partager mon expérience</span>
 				<span id="modalUniversityTitle">Université</span>
 				<form  method="post" action="CommentServlet" id="addComment">
-					<div class="comment">
-						<span class="modalTitle2">Commentaire</span>
-						<textarea id="commentTextArea" name="comContent" form="addComment" class="writtenCom" maxlength="255">Commentaire</textarea>
-					</div>
 					<div class="studentInfo">
 						<span class="modalTitle2">Information</span>
 						<div>
-							<label for="firstName">Prénom*:</label><input type="text" id="firstName" name="studentFirstName" required maxlength="45">
+							<label for="adminUniName">Nom:</label><input type="text" id="adminUniName" name="adminUniName" required maxlength="45">
 						</div>
 						<div>
-							<label for="lastName">Nom*:</label><input type="text" id="lastName" name="studentLastName" required maxlength="45">
+							<label for="adminUniCountry">Pays:</label><input type="text" id="adminUniCountry" name="adminUniCountry" required maxlength="45">
 						</div>
 						<div>
-							<label for="mail">Mail*:</label><input type="email" id="mail" name="studentMail" required maxlength="45">
+							<label for="adminUniCity">Ville:</label><input type="email" id="adminUniCity" name="adminUniCity" required maxlength="45">
 						</div>
 						<input type="hidden" value="" id="id_uni" name="id_university">
 						<button id="sendButton" type="submit">Envoyer</button>
@@ -376,56 +364,6 @@
 				</form>
 			</div>
 		</div>
-		
-		<div id="loginModal" class="modal">
-			<div class="loginModal-content">
-				<span class="close-button" onclick="closeLoginModal()">×</span>
-				<span class="modalTitle">Connexion</span>
-				<form  method="post" action="" id="addComment">
-					<div class="studentInfo">
-						<div>
-							<label for="userName">Nom d'utilisateur:</label><input type="text" id="userName" name="userName" required maxlength="45">
-						</div>
-						<div>
-							<label for="password">Mot de passe:</label><input type="password" id="password" name="password" required maxlength="45">
-						</div>
-						<button id="sendButton" type="submit">Envoyer</button>
-					</div>
-				</form>
-			</div>
-		</div>
 
-	<div id="warningModal" class="modal">
-		<div class="modal-content">
-			<span class="close-button" onclick="closeWarning()">×</span> 
-			<span class="modalTitle">Signaler</span>
-			<span id="warningUniversityTitle">Université</span>
-			<form  method="post" action="">
-				<div class="studentInfo">
-				<span class="modalTitle2">Rapport</span><br/>
-					<div>
-						<label for="mail">Mail*:</label> <input type="email" id="mail"
-								name="studentMail" required maxlength="45">
-					</div>
-					<div>
-						<label for="reason">Raison:</label>
-						<select name="reason">
-							<option value="abscence">Manque d'information</option>
-							<option value="fault">Information mauvaise ou erronée</option>
-							<option value="other">Autre</option>
-						</select>
-					</div>
-					<br/>
-					<label for="comContent">Description du problème :</label>
-					<textarea id="alertTextArea" name="alertContent" class="writtenCom" maxlength="255"></textarea>
-				</div>
-				<div class="studentInfo">
-					<input type="hidden" value="" id="id_uni_alert" name="id_university">
-					<button id="sendButton" type="submit">Envoyer</button>
-				</div>
-			</form>
-		</div>
-	</div>
-
-</body>
+	</body>
 </html>

@@ -2,6 +2,7 @@ package gl.servlet;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,7 +17,7 @@ public class DbDao {
 	private static Connection connectDb() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange?useSSL=false", "root", "");
+			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange?useSSL=false", "root", "password");
 		} catch (Exception exObj) {
 			exObj.printStackTrace();
 		}
@@ -120,19 +121,6 @@ public class DbDao {
 			}
 		return rsObj;
 	}
-	
-	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
-	public static void postComment(String firstName, String lastName, String mail, int idExchange) {
-		try {
-			stmtObj = connectDb().createStatement();
-
-			String sql = "INSERT INTO isepxchange.student (firstname, lastname, mail, id_exchange) VALUES (" + firstName + ", " + lastName + ", "
-					+ mail + ", " + idExchange + ")";
-			rsObj = stmtObj.executeQuery(sql);
-		} catch (Exception exObj) {
-				exObj.printStackTrace();
-		}
-	}
 
 	/***** Method #2 :: This Method Is Used To Insert The Records In The Database *****/
 	public static void insertComment(String actualDate, String commentContent, String author_firstname, String author_lastname, String author_mail, String id_university) {
@@ -144,6 +132,37 @@ public class DbDao {
 		} catch (Exception exObj) {
 			exObj.printStackTrace();
 		}
+	}
+	
+	public static void updateComment(String id) {
+		try {
+			stmtObj = connectDb().createStatement();
+			String query = "UPDATE isepxchange.comment SET ACCEPTED = " + true + " WHERE ID = '" + id + "'";
+			stmtObj.executeUpdate(query);
+		} catch (Exception exObj) {
+			exObj.printStackTrace();
+		}
+	}
+	
+	public static void deleteComment(String id) {
+		try {
+			stmtObj = connectDb().createStatement();
+			String query = "DELETE FROM isepxchange.comment WHERE ID = '" + id + "'";
+			stmtObj.executeUpdate(query);
+		} catch (Exception exObj) {
+			exObj.printStackTrace();
+		}
+	}
+
+	public static ResultSet getComments(){
+		try {
+			stmtObj = connectDb().createStatement();
+			String query = "SELECT * FROM ISEPXCHANGE.COMMENT";
+			rsObj = stmtObj.executeQuery(query);
+		} catch (Exception exception){
+			exception.printStackTrace();
+		}
+		return rsObj;
 	}
 	
 	/***** Method #2 :: This Method Is Used To Insert The Records In The Database *****/
@@ -215,6 +234,24 @@ public class DbDao {
 		}
 
 		return rsObj;
+	}
+	
+	public static boolean validate(String name,String password){  
+		boolean status=false;  
+		try {
+			stmtObj = connectDb().createStatement();
+			
+			PreparedStatement ps = connObj.prepareStatement("select * from isepxchange.admin where name=? and password=?");  
+			ps.setString(1, name);  
+			ps.setString(2, password);  
+			      
+			ResultSet rs=ps.executeQuery();  
+			status=rs.next();  	          
+		} catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return status;  
 	}
 
 	/***** Method #3 :: This Method Is Used To Close The Connection With The Database *****/

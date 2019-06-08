@@ -16,7 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import gl.model.Comment;
 import gl.model.University;
+
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
 @WebServlet(name = "getUniversitiesServlet", urlPatterns = "")
 public class DbDemo extends HttpServlet {
@@ -30,6 +33,7 @@ public class DbDemo extends HttpServlet {
 		request.setAttribute("allLanguages", getAllLanguages(request, response));
 		request.setAttribute("allFields", getAllFields(request, response));
 		request.setAttribute("currentTab", "1");
+		request.setAttribute("allComments", getComment());
         RequestDispatcher view = request.getRequestDispatcher("index.jsp");
         view.forward(request, response);
 	}
@@ -61,17 +65,28 @@ public class DbDemo extends HttpServlet {
 		
 		request.setAttribute("allLanguages", getAllLanguages(request, response));
 		request.setAttribute("allFields", getAllFields(request, response));
+		request.setAttribute("allComments", getComment());
 		
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		String mail = request.getParameter("mail");
-		String idExchange = request.getParameter("exchangeTypeParam");
-
-		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-        view.forward(request, response);
+		String username = request.getParameter("userName");  
+	    String password = request.getParameter("password");
+	    
+	    if (username != null) {   	
+			if (DbDao.validate(username, password)){  
+				RequestDispatcher view = request.getRequestDispatcher("adminIndex.jsp");
+		        view.forward(request, response);
+		    }  
+		    else {
+		    	request.setAttribute("loginErrorMessage", "La connexion a échoué");
+		    	RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+		        view.forward(request, response); 
+		    } 
+	    } else {
+	    	RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+	        view.forward(request, response);
+	    }	
 }
 	
-	public List<University> getUniversities	(HttpServletRequest request, HttpServletResponse response, String column, String filter) throws IOException, ServletException {
+	public static List<University> getUniversities	(HttpServletRequest request, HttpServletResponse response, String column, String filter) throws IOException, ServletException {
 
 		List<University> list = new ArrayList();
 		 
@@ -82,7 +97,7 @@ public class DbDemo extends HttpServlet {
 			while (rs.next()) {
 				List<String> langList = new ArrayList();
 				List<String> domList = new ArrayList();
-				
+
 				while (languageList.next()) {
 					if (languageList.getInt(1) == rs.getInt(1)) {
 						langList.add(languageList.getString(2));
@@ -118,7 +133,7 @@ public class DbDemo extends HttpServlet {
 		return list;
 	}
 	
-	public List<String> getAllLanguages	(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public static List<String> getAllLanguages	(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		List<String> list = new ArrayList();
 		 
 		try {
@@ -134,7 +149,7 @@ public class DbDemo extends HttpServlet {
 		return list;
 	}
 	
-	public List<String> getAllFields (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public static List<String> getAllFields (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		List<String> list = new ArrayList();
 		 
 		try {
@@ -150,16 +165,26 @@ public class DbDemo extends HttpServlet {
 		return list;
 	}
 	
-	public void postComment	(HttpServletRequest request, HttpServletResponse response, String firstName, String lastName, 
-			String mail, int idExchange) throws IOException, ServletException {
-		 
-		try {
-		DbDao.postComment(firstName, lastName, mail, idExchange);
-
-		} catch(Exception exObj) {
-			exObj.printStackTrace();
-		} finally {
-			DbDao.disconnectDb();
-		}
-	}
+	public static List<Comment> getComment(){
+        List<Comment> commentList = new ArrayList();
+        try{
+            ResultSet commentsRS = DbDao.getComments();
+            while(commentsRS.next()){
+                Comment comment = new Comment();
+                comment.setId(commentsRS.getInt(1));
+                comment.setCreation_date(commentsRS.getString(2));
+                comment.setContent(commentsRS.getString(3));
+                comment.setAuthor_firstname(commentsRS.getString(4));
+                comment.setAuthor_lastname(commentsRS.getString(5));
+                comment.setAuthor_mail(commentsRS.getString(6));
+                comment.setAccepted(commentsRS.getBoolean(7));
+                comment.setId_university(commentsRS.getInt(8));
+                commentList.add(comment);
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+        return commentList;
+    }
+	
 }

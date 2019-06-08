@@ -6,9 +6,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import gl.model.Comment;
 
 @WebServlet(name = "CommentServlet", urlPatterns = "/CommentServlet")
 public class CommentServlet extends HttpServlet {
@@ -24,7 +29,6 @@ public class CommentServlet extends HttpServlet {
 
         try{
             DbDao.insertComment(stringDate, comment,author_firstname, author_lastname, author_mail,id_university);
-            System.out.println("ADD TO DATABASE");
             response.sendRedirect("/GL");
         }
         catch (Exception exObj){
@@ -37,5 +41,10 @@ public class CommentServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    }
+
+    public static String displayComment(Comment comment){
+        return "<div class='comments'><p><b>"+comment.getCreation_date()+", "+comment.getAuthor_firstname()+" "+comment.getAuthor_lastname()+" ["+comment.getAuthor_mail()+"]</b>"+
+                "<br/>"+comment.getContent()+"</p></div>";
     }
 }

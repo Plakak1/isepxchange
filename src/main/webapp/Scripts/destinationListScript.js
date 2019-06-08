@@ -1,5 +1,5 @@
 function loading(currentTab) {
-	var myContentField = document.getElementById("myContentCountry");
+	var myContentCountry = document.getElementById("myContentCountry");
 	var myContentField = document.getElementById("myContentField");
 	var myContentLanguage = document.getElementById("myContentLanguage");
 	
@@ -36,6 +36,20 @@ function loading(currentTab) {
 	}
 }
 
+function loadingNotifications(currentTab) {
+	var myCommentTab = document.getElementById("submittedCommentTab");
+	var myReportTab = document.getElementById("reportTab");
+
+	if (currentTab == 1) {
+		myCommentTab.style.display = "block";
+		myReportTab.style.display = "none";
+	}
+	if (currentTab == 2) {
+		myCommentTab.style.display = "none";
+		myReportTab.style.display = "block";
+	}
+}
+
 
 function selectedStudentFilter(value) {
 	var countryForm = document.getElementById("countryStudentForm");
@@ -67,15 +81,42 @@ function shareComment(uniName, uniId) {
 	modal.classList.toggle("show-modal");
 
 	var modalUniTitle = document.getElementById("modalUniversityTitle");
-	modalUniTitle.innerHTML = "Université " + uniName;
+	modalUniTitle.innerHTML = uniName;
 
 	document.getElementById("id_uni").value = uniId;
+}
+
+function updateUniversityInfo(uniName, uniId) {
+	var adminModal = document.getElementById("adminUpdateUniversityModal");
+	adminModal.classList.toggle("show-modal");
+
+	var modalUniTitle = document.getElementById("modalUniversityTitle");
+	modalUniTitle.innerHTML = uniName;
+	
+	document.getElementById("adminUniName").value = uniName;
+
+	document.getElementById("id_uni").value = uniId;
+}
+
+function login() {
+	var loginModal = document.getElementById("loginModal");
+	loginModal.classList.toggle("show-modal");
 }
 
 function closeModal() {
     var modal = document.getElementById("commentModal");
     modal.classList = "modal";
-  }
+}
+
+function closeAdminModal() {
+    var adminModal = document.getElementById("adminUpdateUniversityModal");
+    adminModal.classList = "modal";
+}
+
+function closeLoginModal() {
+	var loginModal = document.getElementById("loginModal");
+	loginModal.classList = "modal";
+}
 
 function sendWarning(uniName, uniId){
 	var modal = document.getElementById("warningModal");
@@ -94,11 +135,19 @@ function closeWarning() {
 
 window.onclick = function(event) {
   var modal = document.getElementById("commentModal");
+  var adminModal = document.getElementById("adminUpdateUniversityModal");
+  var loginModal = document.getElementById("loginModal");
   if (event.target == modal) {
     modal.classList = "modal";
+  }
+  if (event.target == adminModal) {
+	  adminModal.classList = "modal";
+  }
+  if (event.target == loginModal) {
+	  loginModal.classList = "modal";
   }
 }
 
 function changeComment() {
     document.getElementById("commentTextArea").value = "Test";
-  }
+}
