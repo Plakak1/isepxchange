@@ -224,7 +224,11 @@
                                             }
                                         }
                                     } %>
-									<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+									<div class="uniButtons">
+				                		<div class="invisibleButton"></div>
+				                		<button class="shareButton" onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+				                		<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Signaler</button>
+				                	</div>      	
 								</div>
 							</div>
 						</div>
@@ -282,7 +286,11 @@
                                             }
                                         }
                                     } %>
-                					<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+                					<div class="uniButtons">
+				                		<div class="invisibleButton"></div>
+				                		<button class="shareButton" onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+				                		<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Signaler</button>
+				                	</div>
             					</div>
         					</div>
     					</div>
@@ -340,7 +348,11 @@
                                             }
                                         }
                                     } %>
-                					<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+                					<div class="uniButtons">
+				                		<div class="invisibleButton"></div>
+				                		<button class="shareButton" onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+				                		<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Signaler</button>
+				                	</div>
             					</div>
         					</div>
     					</div>
@@ -400,7 +412,7 @@
 			<span class="close-button" onclick="closeWarning()">×</span> 
 			<span class="modalTitle">Signaler</span>
 			<span id="warningUniversityTitle">Université</span>
-			<form  method="post" action="">
+			<form  method="post" action="AlertServlet">
 				<div class="studentInfo">
 				<span class="modalTitle2">Rapport</span><br/>
 					<div>

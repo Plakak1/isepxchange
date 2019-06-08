@@ -28,10 +28,10 @@ public class AlertServlet extends HttpServlet {
         String authorMail = request.getParameter("studentMail");
         String reason = request.getParameter("reason");
         String comment = request.getParameter("alertContent");
-        String id_university = request.getParameter("id_university");
+        String idUniversity = request.getParameter("id_university");
 
         try{
-            DbDao.insertAlert(stringDate, authorMail, reason, comment, id_university);
+            DbDao.insertAlert(stringDate, authorMail, reason, comment, idUniversity);
             System.out.println("ADD TO DATABASE");
             response.sendRedirect("/GL");
         }

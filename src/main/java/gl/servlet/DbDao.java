@@ -166,11 +166,11 @@ public class DbDao {
 	}
 	
 	/***** Method #2 :: This Method Is Used To Insert The Records In The Database *****/
-	public static void insertAlert(String actualDate, String authorMail, String reason, String comment, String id_university) {
+	public static void insertAlert(String actualDate, String authorMail, String reason, String comment, String IdUniversity) {
 		try {
 			stmtObj = connectDb().createStatement();
 			String query = "INSERT INTO isepxchange.alert(creation_date, author_mail, reason, comment, treated, id_university)"+
-					" VALUES ('"+actualDate+"','"+authorMail+"','"+reason+"','"+comment+"', TRUE ,'"+id_university+"')";
+					" VALUES ('"+actualDate+"','"+authorMail+"','"+reason+"','"+comment+"', FALSE ,'"+IdUniversity+"')";
 			stmtObj.executeUpdate(query);
 		} catch (Exception exObj) {
 			exObj.printStackTrace();
