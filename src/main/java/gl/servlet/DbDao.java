@@ -165,6 +165,18 @@ public class DbDao {
 		return rsObj;
 	}
 	
+	/***** Method #2 :: This Method Is Used To Insert The Records In The Database *****/
+	public static void insertAlert(String actualDate, String authorMail, String reason, String comment, String id_university) {
+		try {
+			stmtObj = connectDb().createStatement();
+			String query = "INSERT INTO isepxchange.alert(creation_date, author_mail, reason, comment, treated, id_university)"+
+					" VALUES ('"+actualDate+"','"+authorMail+"','"+reason+"','"+comment+"', TRUE ,'"+id_university+"')";
+			stmtObj.executeUpdate(query);
+		} catch (Exception exObj) {
+			exObj.printStackTrace();
+		}
+	}
+	
 	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
 	public static ResultSet getStudentList(String column, String filter) {
 		if (filter.length() != 0) {

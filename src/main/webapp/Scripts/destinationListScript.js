@@ -118,6 +118,21 @@ function closeLoginModal() {
 	loginModal.classList = "modal";
 }
 
+function sendWarning(uniName, uniId){
+	var modal = document.getElementById("warningModal");
+	modal.classList.toggle("show-modal");
+	
+	var modalUniTitle = document.getElementById("warningUniversityTitle");
+	warningUniversityTitle.innerHTML = "Université " + uniName;
+	
+	document.getElementById("id_uni_alert").value = uniId;
+}
+
+function closeWarning() {
+    var modal = document.getElementById("warningModal");
+    modal.classList = "modal";
+ }
+
 window.onclick = function(event) {
   var modal = document.getElementById("commentModal");
   var adminModal = document.getElementById("adminUpdateUniversityModal");

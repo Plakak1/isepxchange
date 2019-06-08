@@ -17,6 +17,12 @@
   	<servlet-class>gl.servlet.UniListServlet</servlet-class>
   </servlet>
   <servlet>
+  	<servlet-name>AlertServlet</servlet-name>
+  	<display-name>AlertServlet</display-name>
+  	<description></description>
+  	<servlet-class>gl.servlet.AlertServlet</servlet-class>
+  </servlet>
+  <servlet>
   	<servlet-name>AdminServlet</servlet-name>
   	<display-name>AdminServlet</display-name>
   	<description></description>
@@ -35,6 +41,10 @@
   <servlet-mapping>
   	<servlet-name>UniListServlet</servlet-name>
   	<url-pattern>/UniListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AlertServlet</servlet-name>
+  	<url-pattern>/AlertServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>AdminServlet</servlet-name>

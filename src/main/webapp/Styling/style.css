@@ -296,7 +296,7 @@ button:focus {
     padding-bottom: 4px;
 }
 
-#modalUniversityTitle {
+#modalUniversityTitle, #warninigUniversityTitle {
     text-align: center;
     font-size: 24px;
     font-weight: bold;
@@ -316,6 +316,27 @@ button:focus {
     padding-left: 5px;
 }
 
+ .warningButton {
+	width: 77px;
+	margin-right: 15px;
+	margin-left: 0px;
+}
+
+.shareButton {
+	 margin: auto;
+}
+
+.invisibleButton {
+	width: 77px;
+	margin-left: 15px;
+}
+
+.uniButtons {
+	display: flex;
+	flex-direction: row !important;
+	justify-content: space-between;
+}
+
 .studentInfo div {
     display: flex;
     flex-direction: row;
@@ -333,7 +354,7 @@ button:focus {
     margin-top: 3px;
 }
 
-.studentInfo div input {
+.studentInfo div input,select {
     width: 65%;
     height: 25px;
     font-size: 16px;

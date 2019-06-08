@@ -173,7 +173,7 @@
     		</form>
   		</div>
 
-    	<div class="content" id="myContentCountry">
+  		<div class="content" id="myContentCountry">
     		<% for(String myCountry: countryList){
     			out.println("<h2 class='categorytitle'>" + myCountry + "</h2>"); %>
 				<% for(University myUni: uniListFilteredByChoiceCountry) {
@@ -395,5 +395,37 @@
 			</div>
 		</div>
 
-	</body>
+	<div id="warningModal" class="modal">
+		<div class="modal-content">
+			<span class="close-button" onclick="closeWarning()">×</span> 
+			<span class="modalTitle">Signaler</span>
+			<span id="warningUniversityTitle">Université</span>
+			<form  method="post" action="">
+				<div class="studentInfo">
+				<span class="modalTitle2">Rapport</span><br/>
+					<div>
+						<label for="mail">Mail*:</label> <input type="email" id="mail"
+								name="studentMail" required maxlength="45">
+					</div>
+					<div>
+						<label for="reason">Raison:</label>
+						<select name="reason">
+							<option value="abscence">Manque d'information</option>
+							<option value="fault">Information mauvaise ou erronée</option>
+							<option value="other">Autre</option>
+						</select>
+					</div>
+					<br/>
+					<label for="comContent">Description du problème :</label>
+					<textarea id="alertTextArea" name="alertContent" class="writtenCom" maxlength="255"></textarea>
+				</div>
+				<div class="studentInfo">
+					<input type="hidden" value="" id="id_uni_alert" name="id_university">
+					<button id="sendButton" type="submit">Envoyer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
 </html>
