@@ -177,6 +177,27 @@ public class DbDao {
 		}
 	}
 	
+	public static void deleteAlert(String id) {
+		try {
+			stmtObj = connectDb().createStatement();
+			String query = "DELETE FROM isepxchange.alert WHERE ID = '" + id + "'";
+			stmtObj.executeUpdate(query);
+		} catch (Exception exObj) {
+			exObj.printStackTrace();
+		}
+	}
+	
+	public static ResultSet getAlerts(){
+		try {
+			stmtObj = connectDb().createStatement();
+			String query = "SELECT * FROM isepxchange.alert";
+			rsObj = stmtObj.executeQuery(query);
+		} catch (Exception exception){
+			exception.printStackTrace();
+		}
+		return rsObj;
+	}
+	
 	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
 	public static ResultSet getStudentList(String column, String filter) {
 		if (filter.length() != 0) {

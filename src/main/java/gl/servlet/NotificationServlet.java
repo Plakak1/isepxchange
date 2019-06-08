@@ -35,6 +35,7 @@ public class NotificationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		String acceptedCom = request.getParameter("acceptComment");
 		String rejectedCom = request.getParameter("rejectComment");
+		String confirmedAlert = request.getParameter("confirmAlert");
 		
 		String currentTab = request.getParameter("currentTab");
 		if (currentTab != null) {
@@ -64,9 +65,20 @@ public class NotificationServlet extends HttpServlet {
 	        finally {
 	            DbDao.disconnectDb();
 	        }
+		} else if (confirmedAlert != null) {
+			try{
+	            DbDao.deleteAlert(confirmedAlert);
+	        }
+	        catch (Exception exObj){
+	            exObj.printStackTrace();
+	        }
+	        finally {
+	            DbDao.disconnectDb();
+	        }
 		}
 		
 		request.setAttribute("allComments", DbDemo.getComment());
+		request.setAttribute("allAlerts", DbDemo.getAlert());
 		
 		RequestDispatcher view = request.getRequestDispatcher("notification.jsp");
         view.forward(request, response);

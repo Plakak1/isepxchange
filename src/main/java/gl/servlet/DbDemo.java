@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import gl.model.Comment;
+import gl.model.Alert;
 import gl.model.University;
 
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
@@ -185,6 +186,27 @@ public class DbDemo extends HttpServlet {
             exception.printStackTrace();
         }
         return commentList;
+    }
+	
+	public static List<Alert> getAlert(){
+        List<Alert> alertsList = new ArrayList();
+        try{
+            ResultSet alertsRS = DbDao.getAlerts();
+            while(alertsRS.next()){
+                Alert alert = new Alert();
+                alert.setId(alertsRS.getInt(1));
+                alert.setCreationDate(alertsRS.getString(2));
+                alert.setAuthorMail(alertsRS.getString(3));
+                alert.setReason(alertsRS.getString(4));
+                alert.setComment(alertsRS.getString(5));
+                alert.setTreated(alertsRS.getBoolean(6));
+                alert.setIdUniversity(alertsRS.getInt(7));
+                alertsList.add(alert);
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+        return alertsList;
     }
 	
 }

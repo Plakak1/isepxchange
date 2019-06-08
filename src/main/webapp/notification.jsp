@@ -1,5 +1,6 @@
 <%@ page import="java.util.*" %>
 <%@ page import="gl.model.Comment" %>
+<%@ page import="gl.model.Alert" %>
 <%@ page import="gl.servlet.CommentServlet" %>
 
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
@@ -7,6 +8,8 @@
 <%
 	List<Comment> allComments = new ArrayList();
 	allComments = (List<Comment>) request.getAttribute("allComments");
+	List<Alert> allAlerts = new ArrayList();
+	allAlerts = (List<Alert>) request.getAttribute("allAlerts");
 	
 	String tab = (String) request.getAttribute("currentTab");
 	int currentTab = Integer.valueOf(tab);
@@ -70,25 +73,23 @@
 		</div>
 		
 		<div id="reportTab">
-			<span>Remplacer par les signalements</span>
-			<% if (allComments != null) {
-				for(Comment com: allComments) {
-					if(!com.isAccepted()) { %>
+			<% if (allAlerts != null) {
+				for(Alert alert: allAlerts) {
+					if(!alert.isTreated()) { %>
 						<div class="notifCommentList">
 							<div class="notifComInfo">
-								<% out.println("<span><b> Auteur : </b>" + com.getAuthor_firstname() + " " + com.getAuthor_lastname() + "</span>"); %>
-								<% out.println("<span><b> Mail : </b>" + com.getAuthor_mail() + "</span>"); %>
-								<% out.println("<span><b> Date de soumission : </b>" + com.getCreation_date() + "</span>"); %>
+								<% out.println("<span><b> Mail : </b>" + alert.getAuthorMail() + "</span><br/>"); %>
+								<% out.println("<span><b> Raison : </b>" + alert.getReason() + "</span><br/>"); %>
+								<% out.println("<span><b> Date de soumission : </b>" + alert.getCreationDate() + "</span>"); %>
 							</div>
 							<div class="notifComContent">
-								<% out.println("<span><b> Content : </b>" + com.getContent() + "</span>"); %>
+								<% out.println("<span><b> Commentaire : </b>" + alert.getComment() + "</span>"); %>
 							</div>
 							<div class="notifComButtons">
 								<form method="post" action="/GL/Notification" class="changebutton">
-									<div class="notifConfirmButton"><button name="acceptComment" value="<% out.println(com.getId()); %>"
-									type="submit">Accepter</button></div>
-									<div class="notifConfirmButton"><button name="rejectComment" value="<% out.println(com.getId()); %>"
-									type="submit">Refuser</button></div>
+									<input type="hidden" name="currentTab" value="2">
+									<div class="notifConfirmButton"><button name="confirmAlert" value="<% out.println(alert.getId()); %>"
+									type="submit">Supprimer</button></div>
 								</form>
 							</div>
 						</div>
