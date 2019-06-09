@@ -77,6 +77,7 @@ public class NotificationServlet extends HttpServlet {
 	        }
 		}
 		
+		request.setAttribute("allUniversities", DbDemo.getUniversities(request, response, "country", ""));
 		request.setAttribute("allComments", DbDemo.getComment());
 		request.setAttribute("allAlerts", DbDemo.getAlert());
 		

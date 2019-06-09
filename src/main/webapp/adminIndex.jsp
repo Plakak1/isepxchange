@@ -122,15 +122,15 @@
   		</div>
 
   		<div class="navBar">
-  			<form method="post" action="">
+  			<form method="post" action="/GL/Admin">
   				<button name="currentTab" value="1" type="submit">Par pays</button>
     		</form>
     		<span class="vertLine"></span>
-    		<form method="post" action="">
+    		<form method="post" action="/GL/Admin">
   				<button name="currentTab" value="2" type="submit">Par domaine</button>
     		</form>
     		<span class="vertLine"></span>
-    		<form method="post" action="">
+    		<form method="post" action="/GL/Admin">
   				<button name="currentTab" value="3" type="submit">Par langue</button>
     		</form>
   		</div>

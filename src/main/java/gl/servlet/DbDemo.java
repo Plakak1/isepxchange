@@ -20,8 +20,6 @@ import gl.model.Comment;
 import gl.model.Alert;
 import gl.model.University;
 
-import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
-
 @WebServlet(name = "getUniversitiesServlet", urlPatterns = "")
 public class DbDemo extends HttpServlet {
 
@@ -101,24 +99,24 @@ public class DbDemo extends HttpServlet {
 
 				while (languageList.next()) {
 					if (languageList.getInt(1) == rs.getInt(1)) {
-						langList.add(languageList.getString(2));
+						langList.add(DbDao.unescapeXML(languageList.getString(2)));
 					}
 				}
 				
 				while (fieldList.next()) {
 					if (fieldList.getInt(1) == rs.getInt(1)) {
-						domList.add(StringEscapeUtils.escapeHtml4(fieldList.getString(2)));
+						domList.add(DbDao.unescapeXML(fieldList.getString(2)));
 					}
 				}
 				
 		         University uni = new University();
 		         uni.setId(rs.getInt(1));
-		         uni.setName(rs.getString(2));
-		         uni.setCity(rs.getString(3));
-		         uni.setCountry(rs.getString(4));
+		         uni.setName(DbDao.unescapeXML(rs.getString(2)));
+		         uni.setCity(DbDao.unescapeXML(rs.getString(3)));
+		         uni.setCountry(DbDao.unescapeXML(rs.getString(4)));
 		         uni.setUrl(rs.getString(5));
 		         uni.setQuota(rs.getInt(6));
-		         uni.setDescription(rs.getString(7));
+		         uni.setDescription(DbDao.unescapeXML(rs.getString(7)));
 		         uni.setLanguage(langList);
 		         uni.setField(domList);
 		         list.add(uni);
@@ -174,10 +172,10 @@ public class DbDemo extends HttpServlet {
                 Comment comment = new Comment();
                 comment.setId(commentsRS.getInt(1));
                 comment.setCreation_date(commentsRS.getString(2));
-                comment.setContent(commentsRS.getString(3));
-                comment.setAuthor_firstname(commentsRS.getString(4));
-                comment.setAuthor_lastname(commentsRS.getString(5));
-                comment.setAuthor_mail(commentsRS.getString(6));
+                comment.setContent(DbDao.unescapeXML((commentsRS.getString(3))));
+                comment.setAuthor_firstname(DbDao.unescapeXML(commentsRS.getString(4)));
+                comment.setAuthor_lastname(DbDao.unescapeXML(commentsRS.getString(5)));
+                comment.setAuthor_mail(DbDao.unescapeXML(commentsRS.getString(6)));
                 comment.setAccepted(commentsRS.getBoolean(7));
                 comment.setId_university(commentsRS.getInt(8));
                 commentList.add(comment);
@@ -196,9 +194,9 @@ public class DbDemo extends HttpServlet {
                 Alert alert = new Alert();
                 alert.setId(alertsRS.getInt(1));
                 alert.setCreationDate(alertsRS.getString(2));
-                alert.setAuthorMail(alertsRS.getString(3));
+                alert.setAuthorMail(DbDao.unescapeXML(alertsRS.getString(3)));
                 alert.setReason(alertsRS.getString(4));
-                alert.setComment(alertsRS.getString(5));
+                alert.setComment(DbDao.unescapeXML(alertsRS.getString(5)));
                 alert.setTreated(alertsRS.getBoolean(6));
                 alert.setIdUniversity(alertsRS.getInt(7));
                 alertsList.add(alert);

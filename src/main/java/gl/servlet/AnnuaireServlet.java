@@ -71,13 +71,13 @@ public class AnnuaireServlet extends HttpServlet {
 
 
 		         stud.setId(rs.getInt(1));
-		         stud.setFirstName(rs.getString(2));
-		         stud.setLastName(rs.getString(3));
+		         stud.setFirstName(DbDao.unescapeXML(rs.getString(2)));
+		         stud.setLastName(DbDao.unescapeXML(rs.getString(3)));
 		         stud.setMail(rs.getString(4));
 		         stud.setStartDate(rs.getDate(7));
 		         stud.setEndDate(rs.getDate(8));
-		         stud.setUniversityName(rs.getString(5));
-		         stud.setUniversityCountry(rs.getString(6));
+		         stud.setUniversityName(DbDao.unescapeXML(rs.getString(5)));
+		         stud.setUniversityCountry(DbDao.unescapeXML(rs.getString(6)));
 		         list.add(stud);
 		      }
 		} catch(Exception exObj) {

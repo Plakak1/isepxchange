@@ -6,7 +6,7 @@
 <%@ page import="gl.servlet.CommentServlet" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 
 <%
 	Comparator<University> compareByCountry = (University o1, University o2) -> o1.getCountry().compareTo(o2.getCountry());
@@ -226,7 +226,7 @@
                                     } %>
 									<div class="uniButtons">
 				                		<div class="invisibleButton"></div>
-				                		<button class="shareButton" onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+				                		<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
 				                		<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Signaler</button>
 				                	</div>      	
 								</div>
@@ -288,7 +288,7 @@
                                     } %>
                 					<div class="uniButtons">
 				                		<div class="invisibleButton"></div>
-				                		<button class="shareButton" onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+				                		<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
 				                		<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Signaler</button>
 				                	</div>
             					</div>
@@ -350,7 +350,7 @@
                                     } %>
                 					<div class="uniButtons">
 				                		<div class="invisibleButton"></div>
-				                		<button class="shareButton" onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+				                		<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
 				                		<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Signaler</button>
 				                	</div>
             					</div>

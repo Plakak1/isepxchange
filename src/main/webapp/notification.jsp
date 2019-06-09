@@ -1,11 +1,14 @@
 <%@ page import="java.util.*" %>
 <%@ page import="gl.model.Comment" %>
 <%@ page import="gl.model.Alert" %>
+<%@ page import="gl.model.University" %>
 <%@ page import="gl.servlet.CommentServlet" %>
 
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <%
+	List<University> allUni = new ArrayList();
+	allUni = (List<University>) request.getAttribute("allUniversities");
 	List<Comment> allComments = new ArrayList();
 	allComments = (List<Comment>) request.getAttribute("allComments");
 	List<Alert> allAlerts = new ArrayList();
@@ -54,6 +57,7 @@
 								<% out.println("<span><b> Auteur : </b>" + com.getAuthor_firstname() + " " + com.getAuthor_lastname() + "</span>"); %>
 								<% out.println("<span><b> Mail : </b>" + com.getAuthor_mail() + "</span>"); %>
 								<% out.println("<span><b> Date de soumission : </b>" + com.getCreation_date() + "</span>"); %>
+								}
 							</div>
 							<div class="notifComContent">
 								<% out.println("<span><b> Content : </b>" + com.getContent() + "</span>"); %>
@@ -81,6 +85,11 @@
 								<% out.println("<span><b> Mail : </b>" + alert.getAuthorMail() + "</span><br/>"); %>
 								<% out.println("<span><b> Raison : </b>" + alert.getReason() + "</span><br/>"); %>
 								<% out.println("<span><b> Date de soumission : </b>" + alert.getCreationDate() + "</span>"); %>
+								<% for(University uni: allUni) {
+									if (uni.getId() == alert.getIdUniversity()) {
+										out.println("<br><span><b> Université concernée : </b>" + uni.getName() + ", " + uni.getCountry() + "</span>");
+									}
+								} %>
 							</div>
 							<div class="notifComContent">
 								<% out.println("<span><b> Commentaire : </b>" + alert.getComment() + "</span>"); %>
