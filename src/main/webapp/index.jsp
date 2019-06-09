@@ -110,18 +110,18 @@
 	<body onload="loading(<% out.println(currentTab); %>)">
   		<h1>Liste des destinations</h1>
 
-  		<div class="searchBar">
-            <form method="post" action="/GL/Annuaire" class="changebutton">
+		<div class="searchBar">
+			<form method="post" action="/GL/Annuaire" class="changebutton">
                 <button class="studentListButton" type="submit">Annuaire des étudiants</button>
-            </form>
+			</form>
 			<div class="searchbaricon">
-    			<input type="text" placeholder="Rechercher...">
-    			<i class="fas fa-search"></i>
+				<input type="text" placeholder="Rechercher...">
+				<i class="fas fa-search"></i>
 			</div>
-			<div>
-                <button onclick="login()" class="studentListButton">Connexion</button>
-            </div>
-  		</div>
+			<div class="changebutton">
+                <button onclick="login()" class="studentListButton" class="changebutton">Connexion</button>
+			</div>
+		</div>
 
   		<div class="navBar">
   			<form method="post" action="">
@@ -189,18 +189,18 @@
                                         <% out.println("<li><span><b> Localisation : </b>" + myUni.getCountry() + ", " + myUni.getCity() + "</span></li>");%>
 										<% if (myUni.getLanguage() != null) {
 											if (myUni.getLanguage().size() > 1){
-												out.println("<span><b> Langues : </b>"+myUni.getListString(myUni.getLanguage())+"</span><br/>");
+												out.println("<li><span><b> Langues : </b>"+myUni.getListString(myUni.getLanguage())+"</span></li>");
 											}
 											else{
-												out.println("<span><b> Langue : </b>"+myUni.getListString(myUni.getLanguage())+"</span><br/>");
+												out.println("<li><span><b> Langue : </b>"+myUni.getListString(myUni.getLanguage())+"</span></li>");
 											}
 										} %>
 										<% if (myUni.getField() != null) {
 											if(myUni.getField().size() > 1){
-												out.println("<span><b> Domaines : </b>"+myUni.getListString(myUni.getField())+"</span>");
+												out.println("<li><span><b> Domaines : </b>"+myUni.getListString(myUni.getField())+"</span></li>");
 											}
 											else{
-												out.println("<span><b> Domaine : </b>"+myUni.getListString(myUni.getField())+"</span>");
+												out.println("<li><span><b> Domaine : </b>"+myUni.getListString(myUni.getField())+"</span></li>");
 											}
 										} %>
                                         <% if(myUni.getQuota() != 0){
@@ -249,32 +249,34 @@
                 					<span class="horiLine"></span>
 								</div>
            						<div class="universityInfo">
-            						<% out.println("<span><b> Localisation : </b>" + myUni.getCountry() + ", " + myUni.getCity() + "</span>");%>
-									<% if (myUni.getLanguage() != null) {
-										if (myUni.getLanguage().size() > 1){
-											out.println("<span><b> Langues : </b>"+myUni.getListString(myUni.getLanguage())+"</span><br/>");
+									<ul>
+										<% out.println("<li><span><b> Localisation : </b>" + myUni.getCountry() + ", " + myUni.getCity() + "</span></li>");%>
+										<% if (myUni.getLanguage() != null) {
+											if (myUni.getLanguage().size() > 1){
+												out.println("<li><span><b> Langues : </b>"+myUni.getListString(myUni.getLanguage())+"</span></li>");
+											}
+											else{
+												out.println("<li><span><b> Langue : </b>"+myUni.getListString(myUni.getLanguage())+"</span></li>");
+											}
+										} %>
+										<% if (myUni.getField() != null) {
+											if(myUni.getField().size() > 1){
+												out.println("<li><span><b> Domaines : </b>"+myUni.getListString(myUni.getField())+"</span></li>");
+											}
+											else{
+												out.println("<li><span><b> Domaine : </b>"+myUni.getListString(myUni.getField())+"</span></li>");
+											}
+										} %>
+										<% if(myUni.getQuota() != 0){
+											out.println("<li><span><b> Quota : </b>" + myUni.getQuota() + "</span></li>");
 										}
 										else{
-											out.println("<span><b> Langue : </b>"+myUni.getListString(myUni.getLanguage())+"</span><br/>");
-										}
-									} %>
-									<% if (myUni.getField() != null) {
-										if(myUni.getField().size() > 1){
-											out.println("<span><b> Domaines : </b>"+myUni.getListString(myUni.getField())+"</span>");
-										}
-										else{
-											out.println("<span><b> Domaine : </b>"+myUni.getListString(myUni.getField())+"</span>");
-										}
-            						} %>
-                                    <% if(myUni.getQuota() != 0){
-                                        out.println("<span><b> Quota : </b>" + myUni.getQuota() + "</span>");
-                                    }
-                                    else{
-                                        out.println("Il n'y a pas de quota pour cette univeritsé.");
-                                    }%>
-                					<% if (myUni.getDescription() != null) {
-                    					out.println("<span> Informations : " + myUni.getDescription() + "</span>");
-                					} %>
+											out.println("<li>Il n'y a pas de quota pour cette univeritsé.</li>");
+										}%>
+										<% if (myUni.getDescription() != null) {
+											out.println("<li><span><b> Informations : </b>" + myUni.getDescription() + "</span></li>");
+										} %>
+									</ul>
                 					<span class="horiLine"></span>
             					</div>
             					<div class="commentSection">
@@ -311,32 +313,34 @@
                 					<span class="horiLine"></span>
             					</div>
            						<div class="universityInfo">
-            						<% out.println("<span><b> Localisation : </b>" + myUni.getCountry() + ", " + myUni.getCity() + "</span>");%>
-									<% if (myUni.getLanguage() != null) {
-										if (myUni.getLanguage().size() > 1){
-											out.println("<span><b> Langues : </b>"+myUni.getListString(myUni.getLanguage())+"</span><br/>");
+									<ul>
+										<% out.println("<li><span><b> Localisation : </b>" + myUni.getCountry() + ", " + myUni.getCity() + "</span></li>");%>
+										<% if (myUni.getLanguage() != null) {
+											if (myUni.getLanguage().size() > 1){
+												out.println("<li><span><b> Langues : </b>"+myUni.getListString(myUni.getLanguage())+"</span></li>");
+											}
+											else{
+												out.println("<li><span><b> Langue : </b>"+myUni.getListString(myUni.getLanguage())+"</span></li>");
+											}
+										} %>
+										<% if (myUni.getField() != null) {
+											if(myUni.getField().size() > 1){
+												out.println("<li><span><b> Domaines : </b>"+myUni.getListString(myUni.getField())+"</span></li>");
+											}
+											else{
+												out.println("<li><span><b> Domaine : </b>"+myUni.getListString(myUni.getField())+"</span></li>");
+											}
+										} %>
+										<% if(myUni.getQuota() != 0){
+											out.println("<li><span><b> Quota : </b>" + myUni.getQuota() + "</span></li>");
 										}
 										else{
-											out.println("<span><b> Langue : </b>"+myUni.getListString(myUni.getLanguage())+"</span><br/>");
-										}
-									} %>
-									<% if (myUni.getField() != null) {
-										if(myUni.getField().size() > 1){
-											out.println("<span><b> Domaines : </b>"+myUni.getListString(myUni.getField())+"</span>");
-										}
-										else{
-											out.println("<span><b> Domaine : </b>"+myUni.getListString(myUni.getField())+"</span>");
-										}
-									} %>
-									<% if(myUni.getQuota() != 0){
-									    out.println("<span><b> Quota : </b>" + myUni.getQuota() + "</span>");
-                                    }
-                                    else{
-                                        out.println("Il n'y a pas de quota pour cette univeritsé.");
-                                    }%>
-                					<% if (myUni.getDescription() != null) {
-                    					out.println("<span><b> Informations : </b>" + myUni.getDescription() + "</span>");
-                					} %>
+											out.println("<li>Il n'y a pas de quota pour cette univeritsé.</li>");
+										}%>
+										<% if (myUni.getDescription() != null) {
+											out.println("<li><span><b> Informations : </b>" + myUni.getDescription() + "</span></li>");
+										} %>
+									</ul>
                 					<span class="horiLine"></span>
             					</div>
             					<div class="commentSection">
@@ -349,9 +353,12 @@
                                         }
                                     } %>
                 					<div class="uniButtons">
-				                		<div class="invisibleButton"></div>
-				                		<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
-				                		<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Signaler</button>
+										<div id="buttonexpe">
+				                			<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
+										</div>
+										<div id="buttonalert">
+				                			<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Signaler</button>
+										</div>
 				                	</div>
             					</div>
         					</div>
@@ -366,7 +373,7 @@
 				<span class="close-button" onclick="closeModal()">×</span>
 				<span class="modalTitle">Partager mon expérience</span>
 				<span id="modalUniversityTitle">Université</span>
-				<form  method="post" action="CommentServlet" id="addComment">
+				<form  method="post" action="" id="addComment">
 					<div class="comment">
 						<span class="modalTitle2">Commentaire</span>
 						<textarea id="commentTextArea" name="comContent" form="addComment" class="writtenCom" maxlength="255">Commentaire</textarea>
@@ -383,7 +390,7 @@
 							<label for="mail">Mail*:</label><input type="email" id="mail" name="studentMail" required maxlength="45">
 						</div>
 						<input type="hidden" value="" id="id_uni" name="id_university">
-						<button id="sendButton" type="submit">Envoyer</button>
+						<button class="sendButton" type="submit">Envoyer</button>
 					</div>
 				</form>
 			</div>
@@ -393,7 +400,7 @@
 			<div class="loginModal-content">
 				<span class="close-button" onclick="closeLoginModal()">×</span>
 				<span class="modalTitle">Connexion</span>
-				<form  method="post" action="" id="addComment">
+				<form  method="post" action="">
 					<div class="studentInfo">
 						<div>
 							<label for="userName">Nom d'utilisateur:</label><input type="text" id="userName" name="userName" required maxlength="45">
@@ -401,43 +408,42 @@
 						<div>
 							<label for="password">Mot de passe:</label><input type="password" id="password" name="password" required maxlength="45">
 						</div>
+						<button class="sendButton" type="submit">Envoyer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div id="warningModal" class="modal">
+			<div class="modal-content">
+				<span class="close-button" onclick="closeWarning()">×</span>
+				<span class="modalTitle">Signaler</span>
+				<span id="warningUniversityTitle">Université</span>
+				<form  method="post" action="AlertServlet">
+					<div class="studentInfo">
+					<span class="modalTitle2">Rapport</span><br/>
+						<div>
+							<label for="mail">Mail*:</label> <input type="email" id="mail" name="studentMail" required maxlength="45">
+						</div>
+						<div>
+							<label for="reason">Raison:</label>
+							<select name="reason" id="reason">
+								<option value="abscence">Manque d'information</option>
+								<option value="fault">Information mauvaise ou erronée</option>
+								<option value="other">Autre</option>
+							</select>
+						</div>
+						<br/>
+						<label for="comContent">Description du problème :</label>
+						<textarea id="alertTextArea" name="alertContent" class="writtenCom" maxlength="255"></textarea>
+					</div>
+					<div class="studentInfo">
+						<input type="hidden" value="" id="id_uni_alert" name="id_university">
 						<button id="sendButton" type="submit">Envoyer</button>
 					</div>
 				</form>
 			</div>
 		</div>
 
-	<div id="warningModal" class="modal">
-		<div class="modal-content">
-			<span class="close-button" onclick="closeWarning()">×</span> 
-			<span class="modalTitle">Signaler</span>
-			<span id="warningUniversityTitle">Université</span>
-			<form  method="post" action="AlertServlet">
-				<div class="studentInfo">
-				<span class="modalTitle2">Rapport</span><br/>
-					<div>
-						<label for="mail">Mail*:</label> <input type="email" id="mail"
-								name="studentMail" required maxlength="45">
-					</div>
-					<div>
-						<label for="reason">Raison:</label>
-						<select name="reason">
-							<option value="abscence">Manque d'information</option>
-							<option value="fault">Information mauvaise ou erronée</option>
-							<option value="other">Autre</option>
-						</select>
-					</div>
-					<br/>
-					<label for="comContent">Description du problème :</label>
-					<textarea id="alertTextArea" name="alertContent" class="writtenCom" maxlength="255"></textarea>
-				</div>
-				<div class="studentInfo">
-					<input type="hidden" value="" id="id_uni_alert" name="id_university">
-					<button id="sendButton" type="submit">Envoyer</button>
-				</div>
-			</form>
-		</div>
-	</div>
-
-</body>
+	</body>
 </html>

@@ -33,6 +33,12 @@ public class AdminServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String quota = request.getParameter("adminUniQuota");
+		String url = request.getParameter("adminUniUrl");
+		String information = request.getParameter("adminUniInfo");
+		String universityID = request.getParameter("id_university");
+		DbDao.updateUniversityInformation(quota, url, information, universityID);
+
 		String uniFilterCountry = request.getParameter("countryParam");
 		String uniFilterField = request.getParameter("fieldParam");
 		String uniFilterLanguage = request.getParameter("languageParam");
@@ -55,7 +61,7 @@ public class AdminServlet extends HttpServlet {
 		} else {
 			request.setAttribute("currentTab", "1");
 		}
-		
+
 		request.setAttribute("allLanguages", DbDemo.getAllLanguages(request, response));
 		request.setAttribute("allFields", DbDemo.getAllFields(request, response));
 		request.setAttribute("allComments", DbDemo.getComment());

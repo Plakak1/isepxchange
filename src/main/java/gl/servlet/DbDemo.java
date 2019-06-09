@@ -75,15 +75,15 @@ public class DbDemo extends HttpServlet {
 		        view.forward(request, response);
 		    }  
 		    else {
-		    	request.setAttribute("loginErrorMessage", "La connexion a échoué");
+		    	request.setAttribute("loginErrorMessage", "La connexion a ï¿½chouï¿½");
 		    	RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 		        view.forward(request, response); 
 		    } 
 	    } else {
 	    	RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 	        view.forward(request, response);
-	    }	
-}
+	    }
+	}
 	
 	public static List<University> getUniversities	(HttpServletRequest request, HttpServletResponse response, String column, String filter) throws IOException, ServletException {
 

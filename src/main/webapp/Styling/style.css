@@ -326,17 +326,21 @@ button:focus {
 	 margin: auto;
 }
 
-.invisibleButton {
-	width: 77px;
-	margin-left: 15px;
-}
-
 .uniButtons {
 	display: flex;
 	flex-direction: row !important;
 	justify-content: space-between;
 }
 
+#buttonexpe{
+    width:60%;
+    justify-items: center;
+}
+
+#buttonexpe{
+    width: 40%;
+    justify-items: center;
+}
 .studentInfo div {
     display: flex;
     flex-direction: row;
@@ -422,4 +426,23 @@ button:focus {
 	font-size: 22px;
 	font-weight: bold;
 	text-align: center;
+}
+
+#deconnexion{
+    background-color: red;
+}
+
+#adminUniQuota, #adminUniUrl{
+    margin-left: 0;
+}
+
+#adminUniInfo{
+    width: 65%;
+    height: 100px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid;
+    padding-left: 4px;
+    margin-top: 5px;
+    margin-bottom: 15px;
 }

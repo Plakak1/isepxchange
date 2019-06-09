@@ -51,6 +51,9 @@
                 <input type="text" placeholder="Rechercher...">
                 <i class="fas fa-search"></i>
             </div>
+            <div class="changebutton">
+                <button onclick="login()" class="studentListButton" class="changebutton">Connexion</button>
+            </div>
         </div>
 
         <div class="navBar">

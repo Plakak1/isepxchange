@@ -62,7 +62,6 @@ public class DbDao {
 	public static String escapeAccents(String str) {
 	    if (str == null || str.length() == 0)
 	      return "";
-
 	    return new String(str.getBytes(),Charset.forName("UTF-8"));
 	  }
 	
@@ -357,6 +356,16 @@ public class DbDao {
 		
 		return status;  
 	}
+
+	public static void updateUniversityInformation(String quota, String url, String information, String id){
+	    try{
+	        stmtObj = connectDb().createStatement();
+	        String query ="UPDATE isepxchange.university SET quota='"+escapeHTML(escapeAccents(quota))+"', url='"+escapeHTML(escapeAccents(url))+"', description='"+escapeHTML(escapeAccents(information))+"' WHERE id='"+id+"'";
+	        stmtObj.executeUpdate(query);
+        } catch (Exception exception){
+	        exception.printStackTrace();
+        }
+    }
 
 	/***** Method #3 :: This Method Is Used To Close The Connection With The Database *****/
 	public static void disconnectDb() {

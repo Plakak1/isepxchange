@@ -36,6 +36,13 @@
             <form method="post" action="/GL/Admin" class="changebutton">
                 <button class="studentListButton" type="submit">Liste des universités</button>
             </form>
+			<div class="searchbaricon">
+				<input type="text" placeholder="Rechercher...">
+				<i class="fas fa-search"></i>
+			</div>
+			<form method="post" action="/GL" class="changebutton">
+				<button class="studentListButton" type="submit" id="deconnexion">Déconnexion</button>
+			</form>
         </div>
 
         <div class="navBar">
@@ -54,20 +61,17 @@
 					if(!com.isAccepted()) { %>
 						<div class="notifCommentList">
 							<div class="notifComInfo">
-								<% out.println("<span><b> Auteur : </b>" + com.getAuthor_firstname() + " " + com.getAuthor_lastname() + "</span>"); %>
-								<% out.println("<span><b> Mail : </b>" + com.getAuthor_mail() + "</span>"); %>
-								<% out.println("<span><b> Date de soumission : </b>" + com.getCreation_date() + "</span>"); %>
-								}
+								<% out.println("<span><b> Auteur : </b>" + com.getAuthor_firstname() + " " + com.getAuthor_lastname() + " </span>"); %>
+								<% out.println("<span><b> Mail : </b>" + com.getAuthor_mail() + " </span>"); %>
+								<% out.println("<span><b> Date de soumission : </b>" + com.getCreation_date() + "</span>");%>
 							</div>
 							<div class="notifComContent">
 								<% out.println("<span><b> Content : </b>" + com.getContent() + "</span>"); %>
 							</div>
 							<div class="notifComButtons">
 								<form method="post" action="/GL/Notification" class="changebutton">
-									<div class="notifConfirmButton"><button name="acceptComment" value="<% out.println(com.getId()); %>"
-									type="submit">Accepter</button></div>
-									<div class="notifConfirmButton"><button name="rejectComment" value="<% out.println(com.getId()); %>"
-									type="submit">Refuser</button></div>
+									<div class="notifConfirmButton"><button name="acceptComment" value="<% out.println(com.getId()); %>" type="submit" style="background-color: green">Accepter</button></div>
+									<div class="notifConfirmButton"><button name="rejectComment" value="<% out.println(com.getId()); %>" type="submit" style="background-color: red">Refuser</button></div>
 								</form>
 							</div>
 						</div>

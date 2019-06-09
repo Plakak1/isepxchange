@@ -86,15 +86,27 @@ function shareComment(uniName, uniId) {
 	document.getElementById("id_uni").value = uniId;
 }
 
-function updateUniversityInfo(uniName, uniId) {
+function updateUniversityInfo(uniName, uniId, uniCountry, uniCity, uniUrl, uniQuota, uniDescription) {
 	var adminModal = document.getElementById("adminUpdateUniversityModal");
 	adminModal.classList.toggle("show-modal");
 
 	var modalUniTitle = document.getElementById("modalUniversityTitle");
 	modalUniTitle.innerHTML = uniName;
-	
-	document.getElementById("adminUniName").value = uniName;
 
+	var modalUniTitle = document.getElementById("adminUniName");
+	modalUniTitle.innerHTML = uniName;
+
+	var modalUniTitle = document.getElementById("adminUniCountry");
+	modalUniTitle.innerHTML = uniCountry;
+
+	var modalUniTitle = document.getElementById("adminUniCity");
+	modalUniTitle.innerHTML = uniCity;
+
+	var modalUniTitle = document.getElementById("adminUniInfo");
+	modalUniTitle.innerHTML = uniDescription;
+
+	document.getElementById("adminUniUrl").value = uniUrl;
+	document.getElementById("adminUniQuota").value = uniQuota;
 	document.getElementById("id_uni").value = uniId;
 }
 
@@ -123,7 +135,7 @@ function sendWarning(uniName, uniId){
 	modal.classList.toggle("show-modal");
 	
 	var modalUniTitle = document.getElementById("warningUniversityTitle");
-	warningUniversityTitle.innerHTML = "Université " + uniName;
+	warningUniversityTitle.innerHTML = uniName;
 	
 	document.getElementById("id_uni_alert").value = uniId;
 }
