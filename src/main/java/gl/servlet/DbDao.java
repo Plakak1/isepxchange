@@ -19,8 +19,11 @@ public class DbDao {
 	/***** Method #1 :: This Method Is Used To Create A Connection With The Database *****/
 	private static Connection connectDb() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange?useSSL=false&useUnicode=true&characterEncoding=utf8", "root", "password");
+			String user = "root";
+			String password = "password";
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC", user, password);
 		} catch (Exception exObj) {
 			exObj.printStackTrace();
 		}

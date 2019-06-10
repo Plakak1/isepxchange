@@ -9,7 +9,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 
 <%
-	Comparator<University> compareByCountry = (University o1, University o2) -> o1.getCountry().compareTo(o2.getCountry());
+	// Comparator<University> compareByCountry = (University o1, University o2) -> o1.getCountry().compareTo(o2.getCountry());
 	// Comparator<University> compareByField = (University o1, University o2) -> o1.getField().compareTo(o2.getField());
 	// Comparator<University> compareByLanguage = (University o1, University o2) -> o1.getLanguage().compareTo(o2.getLanguage());
 	
@@ -34,9 +34,7 @@
 	uniListFilteredByField.addAll(uniListFilteredByCountry);
 	uniListFilteredByLanguage.addAll(uniListFilteredByCountry);
 
-	
-	
-	Collections.sort(uniListFilteredByCountry, compareByCountry);
+	// Collections.sort(uniListFilteredByCountry, compareByCountry);
 	// Collections.sort(uniListFilteredByField, compareByField);
 	// Collections.sort(uniListFilteredByLanguage, compareByLanguage);
 	
@@ -102,16 +100,16 @@
 	<head>
   		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
   		<title>Destination List</title>
-		<link rel="stylesheet" href="Styling/style.css">
+		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-		<script type="text/javascript" src="Scripts/destinationListScript.js"></script>
+		<script type="text/javascript" src="js/destinationList.js"></script>
 	</head>
 
 	<body onload="loading(<% out.println(currentTab); %>)">
   		<h1>Liste des destinations</h1>
 
 		<div class="searchBar">
-			<form method="post" action="/GL/Annuaire" class="changebutton">
+			<form method="post" action="/Annuaire" class="changebutton">
                 <button class="studentListButton" type="submit">Annuaire des étudiants</button>
 			</form>
 			<div class="searchbaricon">
@@ -387,7 +385,7 @@
 							<label for="lastName">Nom*:</label><input type="text" id="lastName" name="studentLastName" required maxlength="45">
 						</div>
 						<div>
-							<label for="mail">Mail*:</label><input type="email" id="mail" name="studentMail" required maxlength="45">
+							<label for="mail">Mail*:</label><input type="email" name="studentMail" required maxlength="45">
 						</div>
 						<input type="hidden" value="" id="id_uni" name="id_university">
 						<button class="sendButton" type="submit">Envoyer</button>
@@ -423,7 +421,7 @@
 					<div class="studentInfo">
 					<span class="modalTitle2">Rapport</span><br/>
 						<div>
-							<label for="mail">Mail*:</label> <input type="email" id="mail" name="studentMail" required maxlength="45">
+							<label for="mail">Mail*:</label> <input type="email" name="studentMail" required maxlength="45">
 						</div>
 						<div>
 							<label for="reason">Raison:</label>

@@ -35,7 +35,7 @@ public class AlertServlet extends HttpServlet {
 
         try{
             DbDao.insertAlert(stringDate, authorMail, reason, comment, idUniversity);
-            response.sendRedirect("/GL");
+            response.sendRedirect("/");
         }
         catch (Exception exObj){
             exObj.printStackTrace();

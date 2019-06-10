@@ -9,7 +9,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <%
-	Comparator<University> compareByCountry = (University o1, University o2) -> o1.getCountry().compareTo(o2.getCountry());
+	// Comparator<University> compareByCountry = (University o1, University o2) -> o1.getCountry().compareTo(o2.getCountry());
 	// Comparator<University> compareByField = (University o1, University o2) -> o1.getField().compareTo(o2.getField());
 	// Comparator<University> compareByLanguage = (University o1, University o2) -> o1.getLanguage().compareTo(o2.getLanguage());
 	
@@ -32,9 +32,7 @@
 	uniListFilteredByField.addAll(uniListFilteredByCountry);
 	uniListFilteredByLanguage.addAll(uniListFilteredByCountry);
 
-	
-	
-	Collections.sort(uniListFilteredByCountry, compareByCountry);
+	// Collections.sort(uniListFilteredByCountry, compareByCountry);
 	// Collections.sort(uniListFilteredByField, compareByField);
 	// Collections.sort(uniListFilteredByLanguage, compareByLanguage);
 	
@@ -100,37 +98,37 @@
 	<head>
   		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
   		<title>Destination List</title>
-		<link rel="stylesheet" href="Styling/style.css">
+		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-		<script type="text/javascript" src="Scripts/destinationListScript.js"></script>
+		<script type="text/javascript" src="js/destinationList.js"></script>
 	</head>
 
 	<body onload="loading(<% out.println(currentTab); %>)">
   		<h1>Liste des destinations</h1>
 
   		<div class="searchBar">
-            <form method="post" action="/GL/Notification" class="changebutton">
+            <form method="post" action="/Notification" class="changebutton">
                 <button class="studentListButton" type="submit">Notifications</button>
             </form>
 			<div class="searchbaricon">
     			<input type="text" placeholder="Rechercher...">
     			<i class="fas fa-search"></i>
 			</div>
-			<form method="post" action="/GL" class="changebutton">
+			<form method="post" action="/" class="changebutton">
                 <button class="studentListButton" type="submit" id="deconnexion">Déconnexion</button>
             </form>
   		</div>
 
   		<div class="navBar">
-  			<form method="post" action="/GL/Admin">
+  			<form method="post" action="/Admin">
   				<button name="currentTab" value="1" type="submit">Par pays</button>
     		</form>
     		<span class="vertLine"></span>
-    		<form method="post" action="/GL/Admin">
+    		<form method="post" action="/Admin">
   				<button name="currentTab" value="2" type="submit">Par domaine</button>
     		</form>
     		<span class="vertLine"></span>
-    		<form method="post" action="/GL/Admin">
+    		<form method="post" action="/Admin">
   				<button name="currentTab" value="3" type="submit">Par langue</button>
     		</form>
   		</div>
@@ -350,7 +348,7 @@
 				<span class="close-button" onclick="closeAdminModal()">×</span>
 				<span class="modalTitle">Modifier les informations</span>
 				<span id="modalUniversityTitle">Université</span>
-				<form  method="post" action="/GL/Admin" id="updateinformations">
+				<form  method="post" action="/Admin" id="updateinformations">
 					<div class="studentInfo">
 						<span class="modalTitle2">Information</span>
 						<div>

@@ -4,29 +4,29 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <%
-	Comparator<Student> compareByUniversityCountry = (Student o1, Student o2) -> o1.getUniversityCountry().compareTo(o2.getUniversityCountry());
+	// Comparator<Student> compareByUniversityCountry = (Student o1, Student o2) -> o1.getUniversityCountry().compareTo(o2.getUniversityCountry());
 	
 	// *** Separation Comparators and the university lists ***
 	
 	int currentTab = 1;
 	
-	List<Student> fullStudentList = new ArrayList();
+	List<Student> fullStudentList = new ArrayList<Student>();
 	fullStudentList = (List<Student>) request.getAttribute("allStudents");
 	
-	List<Student> studentListFilteredByCountry = new ArrayList<>();
+	List<Student> studentListFilteredByCountry = new ArrayList<Student>();
 	studentListFilteredByCountry = (List<Student>) request.getAttribute("studentsFilteredByCountry");
 	if (studentListFilteredByCountry == null) {
 		studentListFilteredByCountry = fullStudentList;
 	}
 
-	List<String> fullCountryList = new ArrayList();
+	List<String> fullCountryList = new ArrayList<String>();
 	for (int i = 0; i < fullStudentList.size(); i++) {
 		if (!fullCountryList.contains(fullStudentList.get(i).getUniversityCountry())) {
 			fullCountryList.add(fullStudentList.get(i).getUniversityCountry());
 		}
 	}
 	
-	Collections.sort(fullStudentList, compareByUniversityCountry);
+	// Collections.sort(fullStudentList, compareByUniversityCountry);
 %>
 
 <!DOCTYPE html>
@@ -34,17 +34,17 @@
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <title>Destination List</title>
-        <link rel="stylesheet" href="Styling/style.css">
+        <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <script type="text/javascript" src="Scripts/destinationListScript.js"></script>
+        <script type="text/javascript" src="js/destinationList.js"></script>
     </head>
 
     <body onload="studentListLoading(<% out.println(currentTab); %>)">
         <h1>Liste des étudiants</h1>
 
         <div class="searchBar">
-            <form method="post" action="/GL" class="changebutton">
+            <form method="post" action="/" class="changebutton">
                 <button class="studentListButton" type="submit">Liste des universités</button>
             </form>
             <div class="searchbaricon">

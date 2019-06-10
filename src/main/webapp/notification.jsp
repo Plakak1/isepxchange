@@ -23,34 +23,34 @@
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <title>Notification List</title>
-        <link rel="stylesheet" href="Styling/style.css">
+        <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <script type="text/javascript" src="Scripts/destinationListScript.js"></script>
+        <script type="text/javascript" src="js/destinationList.js"></script>
     </head>
 
     <body onload="loadingNotifications(<% out.println(currentTab); %>)">
         <h1>Liste des notifications</h1>
 
         <div class="searchBar">
-            <form method="post" action="/GL/Admin" class="changebutton">
+            <form method="post" action="/Admin" class="changebutton">
                 <button class="studentListButton" type="submit">Liste des universités</button>
             </form>
 			<div class="searchbaricon">
 				<input type="text" placeholder="Rechercher...">
 				<i class="fas fa-search"></i>
 			</div>
-			<form method="post" action="/GL" class="changebutton">
+			<form method="post" action="/" class="changebutton">
 				<button class="studentListButton" type="submit" id="deconnexion">Déconnexion</button>
 			</form>
         </div>
 
         <div class="navBar">
-            <form method="post" action="/GL/Notification">
+            <form method="post" action="/Notification">
                 <button name="currentTab" value="1" type="submit">Commentaires</button>
             </form>
             <span class="vertLine"></span>
-            <form method="post" action="/GL/Notification">
+            <form method="post" action="/Notification">
                 <button name="currentTab" value="2" type="submit">Signalements</button>
             </form>
         </div>
@@ -69,7 +69,7 @@
 								<% out.println("<span><b> Content : </b>" + com.getContent() + "</span>"); %>
 							</div>
 							<div class="notifComButtons">
-								<form method="post" action="/GL/Notification" class="changebutton">
+								<form method="post" action="/Notification" class="changebutton">
 									<div class="notifConfirmButton"><button name="acceptComment" value="<% out.println(com.getId()); %>" type="submit" style="background-color: green">Accepter</button></div>
 									<div class="notifConfirmButton"><button name="rejectComment" value="<% out.println(com.getId()); %>" type="submit" style="background-color: red">Refuser</button></div>
 								</form>
@@ -99,7 +99,7 @@
 								<% out.println("<span><b> Commentaire : </b>" + alert.getComment() + "</span>"); %>
 							</div>
 							<div class="notifComButtons">
-								<form method="post" action="/GL/Notification" class="changebutton">
+								<form method="post" action="/Notification" class="changebutton">
 									<input type="hidden" name="currentTab" value="2">
 									<div class="notifConfirmButton"><button name="confirmAlert" value="<% out.println(alert.getId()); %>"
 									type="submit">Supprimer</button></div>

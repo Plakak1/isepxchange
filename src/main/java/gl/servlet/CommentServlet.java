@@ -29,7 +29,7 @@ public class CommentServlet extends HttpServlet {
 
         try{
             DbDao.insertComment(stringDate, comment,author_firstname, author_lastname, author_mail,id_university);
-            response.sendRedirect("/GL");
+            response.sendRedirect("/");
         }
         catch (Exception exObj){
             exObj.printStackTrace();
