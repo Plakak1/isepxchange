@@ -362,7 +362,7 @@
 				<span class="close-button" onclick="closeModal()">×</span>
 				<span class="modalTitle">Partager mon expérience</span>
 				<span id="modalUniversityTitle">Université</span>
-				<form  method="post" action="" id="addComment">
+				<form  method="post" action="CommentServlet" id="addComment">
 					<div class="comment">
 						<span class="modalTitle2">Commentaire</span>
 						<textarea id="commentTextArea" name="comContent" form="addComment" class="writtenCom" maxlength="255">Commentaire</textarea>
