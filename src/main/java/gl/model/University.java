@@ -3,16 +3,17 @@ package gl.model;
 import java.util.List;
 
 public class University {
+
 	private int id;
 	private String name;
 	private String city;
 	private String country;
 	private List<String> language;
 	private List<String> field;
-    private String url;
+	private String url;
 	private int quota;
 	private String description;
-	
+
 	public int getId() {
 		return this.id;
 	}
@@ -20,7 +21,7 @@ public class University {
 	public int setId(int id) {
 		return this.id = id;
 	}
-	
+
 	public String getName() {
 		return this.name;
 	}
@@ -28,7 +29,7 @@ public class University {
 	public String setName(String name) {
 		return this.name = name;
 	}
-	
+
 	public String getCity() {
 		return this.city;
 	}

@@ -6,17 +6,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import gl.model.Comment;
 
 @WebServlet(name = "CommentServlet", urlPatterns = "/CommentServlet")
 public class CommentServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
@@ -31,20 +32,15 @@ public class CommentServlet extends HttpServlet {
             DbDao.insertComment(stringDate, comment,author_firstname, author_lastname, author_mail,id_university);
             response.sendRedirect("/");
         }
-        catch (Exception exObj){
+        catch (Exception exObj) {
             exObj.printStackTrace();
         }
         finally {
             DbDao.disconnectDb();
         }
-
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
-
-    public static String displayComment(Comment comment){
-        return "<div class='comments'><p><b>"+comment.getCreation_date()+", "+comment.getAuthor_firstname()+" "+comment.getAuthor_lastname()+" ["+comment.getAuthor_mail()+"]</b>"+
-                "<br/>"+comment.getContent()+"</p></div>";
+    public static String displayComment(Comment comment) {
+        return "<div class='comments'><p><b>"+comment.getCreation_date()+", "+comment.getAuthor_firstname()+" "+comment.getAuthor_lastname()+" ["+comment.getAuthor_mail()+"]</b>"+"<br/>"+comment.getContent()+"</p></div>";
     }
 }

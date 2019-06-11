@@ -64,13 +64,6 @@ function selectedStudentFilter(value) {
   }
 }
 
-function studentListLoading(currentTab) {
-  if (currentTab == 1) {
-  }
-  if (currentTab == 2) {
-  }
-}
-
 function shareComment(uniName, uniId) {
   var modal = document.getElementById('commentModal');
   modal.classList.toggle('show-modal');
@@ -129,7 +122,6 @@ function sendWarning(uniName, uniId) {
   var modal = document.getElementById('warningModal');
   modal.classList.toggle('show-modal');
 
-  var modalUniTitle = document.getElementById('warningUniversityTitle');
   warningUniversityTitle.innerHTML = uniName;
 
   document.getElementById('id_uni_alert').value = uniId;
@@ -140,7 +132,7 @@ function closeWarning() {
   modal.classList = 'modal';
 }
 
-window.onclick = function(event) {
+window.onclick = event => {
   var modal = document.getElementById('commentModal');
   var adminModal = document.getElementById('adminUpdateUniversityModal');
   var loginModal = document.getElementById('loginModal');

@@ -4,15 +4,11 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <%
-	// Comparator<Student> compareByUniversityCountry = (Student o1, Student o2) -> o1.getUniversityCountry().compareTo(o2.getUniversityCountry());
-	
-	// *** Separation Comparators and the university lists ***
-	
 	int currentTab = 1;
-	
+
 	List<Student> fullStudentList = new ArrayList<Student>();
 	fullStudentList = (List<Student>) request.getAttribute("allStudents");
-	
+
 	List<Student> studentListFilteredByCountry = new ArrayList<Student>();
 	studentListFilteredByCountry = (List<Student>) request.getAttribute("studentsFilteredByCountry");
 	if (studentListFilteredByCountry == null) {
@@ -25,8 +21,6 @@
 			fullCountryList.add(fullStudentList.get(i).getUniversityCountry());
 		}
 	}
-	
-	// Collections.sort(fullStudentList, compareByUniversityCountry);
 %>
 
 <!DOCTYPE html>
@@ -40,7 +34,7 @@
         <script type="text/javascript" src="js/destinationList.js"></script>
     </head>
 
-    <body onload="studentListLoading(<% out.println(currentTab); %>)">
+    <body>
         <h1>Liste des étudiants</h1>
 
         <div class="searchBar">

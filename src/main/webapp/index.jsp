@@ -1,43 +1,34 @@
 <%@ page import="java.util.*" %>
 <%@ page import="gl.model.University" %>
-<%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
-<%@ page import="gl.servlet.DbDao" %>
 <%@ page import="gl.model.Comment" %>
+<%@ page import="gl.servlet.DbDao" %>
 <%@ page import="gl.servlet.CommentServlet" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 
 <%
-	// Comparator<University> compareByCountry = (University o1, University o2) -> o1.getCountry().compareTo(o2.getCountry());
-	// Comparator<University> compareByField = (University o1, University o2) -> o1.getField().compareTo(o2.getField());
-	// Comparator<University> compareByLanguage = (University o1, University o2) -> o1.getLanguage().compareTo(o2.getLanguage());
-	
-	// *** Separation Comparators and the university lists ***
-	
+	/* Full university lists */
+
 	String errorMessage = (String) request.getAttribute("loginErrorMessage");
-	
+
 	List<University> uniListFilteredByCountry = new ArrayList();
 	List<University> uniListFilteredByField = new ArrayList();
 	List<University> uniListFilteredByLanguage = new ArrayList();
-	
+
 	List<String> allLanguages = new ArrayList();
 	List<String> allFields = new ArrayList();
-	
+
 	List<Comment> allComments = new ArrayList();
 
 	uniListFilteredByCountry = (List<University>) request.getAttribute("allUniversities");
 	allLanguages = (List<String>) request.getAttribute("allLanguages");
 	allFields = (List<String>) request.getAttribute("allFields");
 	allComments = (List<Comment>) request.getAttribute("allComments");
-	
+
 	uniListFilteredByField.addAll(uniListFilteredByCountry);
 	uniListFilteredByLanguage.addAll(uniListFilteredByCountry);
 
-	// Collections.sort(uniListFilteredByCountry, compareByCountry);
-	// Collections.sort(uniListFilteredByField, compareByField);
-	// Collections.sort(uniListFilteredByLanguage, compareByLanguage);
-	
 	List<String> fullCountryList = new ArrayList();
 	for (int i = 0; i < uniListFilteredByCountry.size(); i++) {
 		if (!fullCountryList.contains(uniListFilteredByCountry.get(i).getCountry())) {
@@ -45,11 +36,11 @@
 		}
 	}
 
-	// *** Separation beteween full university lists above, and filtered ones below ***
-	
+	/* Separation beteween full university lists above, and filtered ones below */
+
 	String tab = (String) request.getAttribute("currentTab");
 	int currentTab = Integer.valueOf(tab);
-	
+
 	List<University> uniListFilteredByChoiceCountry = new ArrayList();
 	uniListFilteredByChoiceCountry = (List<University>) request.getAttribute("filteredUniCountry");
 	if (uniListFilteredByChoiceCountry == null) {
@@ -61,7 +52,7 @@
 			countryList.add(uniListFilteredByChoiceCountry.get(i).getCountry());
 		}
 	}
-	
+
 	List<String> fieldList = new ArrayList();
 	List<University> uniListFilteredByChoiceField = new ArrayList();
 	uniListFilteredByChoiceField = (List<University>) request.getAttribute("filteredUniField");
@@ -134,10 +125,10 @@
   				<button name="currentTab" value="3" type="submit">Par langue</button>
     		</form>
   		</div>
-  		
+
   		<div class="loginErrorMessage">
   			<% if (errorMessage != null) {
-  				out.println(errorMessage); 
+  				out.println(errorMessage);
   			} %>
   		</div>
 
@@ -226,7 +217,7 @@
 				                		<div class="invisibleButton"></div>
 				                		<button onclick="shareComment(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Partager mon expérience</button>
 				                		<button class="warningButton" onclick="sendWarning(`<% out.println(myUni.getName()); %>`,`<% out.println(myUni.getId()); %>`)">Signaler</button>
-				                	</div>      	
+				                	</div>
 								</div>
 							</div>
 						</div>
@@ -393,7 +384,7 @@
 				</form>
 			</div>
 		</div>
-		
+
 		<div id="loginModal" class="modal">
 			<div class="loginModal-content">
 				<span class="close-button" onclick="closeLoginModal()">×</span>

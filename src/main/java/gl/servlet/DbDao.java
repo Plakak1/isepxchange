@@ -5,10 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-
-import org.apache.commons.lang3.StringEscapeUtils;
 
 public class DbDao {
 
@@ -16,20 +13,20 @@ public class DbDao {
 	static Statement stmtObj = null;
 	static Connection connObj = null;
 
-	/***** Method #1 :: This Method Is Used To Create A Connection With The Database *****/
+	/* Method #1 :: This Method Is Used To Create A Connection With The Database */
 	private static Connection connectDb() {
 		try {
 			String user = "root";
 			String password = "password";
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC", user, password);
+			connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/isepxchange?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC", user, password);
 		} catch (Exception exObj) {
 			exObj.printStackTrace();
 		}
 		return connObj;
 	}
-	
+
 	public static String escapeHTML(String str) {
 	    if (str == null || str.length() == 0)
 	      return "";
@@ -37,97 +34,96 @@ public class DbDao {
 	    StringBuffer buf = new StringBuffer();
 	    int len = str.length();
 	    for (int i = 0; i < len; ++i) {
-	      char c = str.charAt(i);
-	      switch (c) {
-	      case '&':
-	        buf.append("&amp;");
-	        break;
-	      case '<':
-	        buf.append("&lt;");
-	        break;
-	      case '>':
-	        buf.append("&gt;");
-	        break;
-	      case '"':
-	        buf.append("&quot;");
-	        break;
-	      case '\'':
-	        buf.append("&apos;");
-	        break;
-	      default:
-	        buf.append(c);
-	        break;
-	      }
+	      	char c = str.charAt(i);
+			switch (c) {
+			case '&':
+				buf.append("&amp;");
+				break;
+			case '<':
+				buf.append("&lt;");
+				break;
+			case '>':
+				buf.append("&gt;");
+				break;
+			case '"':
+				buf.append("&quot;");
+				break;
+			case '\'':
+				buf.append("&apos;");
+				break;
+			default:
+				buf.append(c);
+				break;
+			}
 	    }
 	    return buf.toString();
-	  }
-	
+	}
+
 	public static String escapeAccents(String str) {
 	    if (str == null || str.length() == 0)
-	      return "";
+	      	return "";
 	    return new String(str.getBytes(),Charset.forName("UTF-8"));
-	  }
-	
-	  public static String unescapeXML(String str) {
-		    if (str == null || str.length() == 0)
-		      return "";
+	}
 
-		    StringBuffer buf = new StringBuffer();
-		    int len = str.length();
-		    for (int i = 0; i < len; ++i) {
-		      char c = str.charAt(i);
-		      if (c == '&') {
-		        int pos = str.indexOf(";", i);
-		        if (pos == -1) { // Really evil
-		          buf.append('&');
-		        } else if (str.charAt(i + 1) == '#') {
-		          int val = Integer.parseInt(str.substring(i + 2, pos), 16);
-		          buf.append((char) val);
-		          i = pos;
-		        } else {
-		          String substr = str.substring(i, pos + 1);
-		          if (substr.equals("&amp;"))
-		            buf.append('&');
-		          else if (substr.equals("&lt;"))
-		            buf.append('<');
-		          else if (substr.equals("&gt;"))
-		            buf.append('>');
-		          else if (substr.equals("&quot;"))
-		            buf.append('"');
-		          else if (substr.equals("&apos;"))
-		            buf.append('\'');
-		          else
-		            // ????
-		            buf.append(substr);
-		          i = pos;
-		        }
-		      } else {
-		        buf.append(c);
-		      }
-		    }
-		    return buf.toString();
-		  }
+	public static String unescapeXML(String str) {
+		if (str == null || str.length() == 0)
+			return "";
 
-	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
+		StringBuffer buf = new StringBuffer();
+		int len = str.length();
+		for (int i = 0; i < len; ++i) {
+			char c = str.charAt(i);
+			if (c == '&') {
+				int pos = str.indexOf(";", i);
+				if (pos == -1) {
+					buf.append('&');
+				} else if (str.charAt(i + 1) == '#') {
+					int val = Integer.parseInt(str.substring(i + 2, pos), 16);
+					buf.append((char) val);
+					i = pos;
+				} else {
+					String substr = str.substring(i, pos + 1);
+					if (substr.equals("&amp;"))
+						buf.append('&');
+					else if (substr.equals("&lt;"))
+						buf.append('<');
+					else if (substr.equals("&gt;"))
+						buf.append('>');
+					else if (substr.equals("&quot;"))
+						buf.append('"');
+					else if (substr.equals("&apos;"))
+						buf.append('\'');
+					else
+						buf.append(substr);
+					i = pos;
+				}
+			} else {
+				buf.append(c);
+			}
+		}
+		return buf.toString();
+	}
+
+	/* Method #2 :: This Method Is Used To Retrieve The Records From The Database */
 	public static ResultSet getUniversityList(String column, String filter) {
 		if (filter.length() != 0) {
 			try {
 				stmtObj = connectDb().createStatement();
 				String sql = "SELECT * from isepxchange.university WHERE country = '" + escapeHTML(escapeAccents(filter)) + "';";
-				
+
 				if (column.equals("language")) {
-					sql = "SELECT UNIVERSITY.ID, UNIVERSITY.NAME, UNIVERSITY.CITY, UNIVERSITY.COUNTRY, " + 
-							"UNIVERSITY.URL, UNIVERSITY.QUOTA, UNIVERSITY.DESCRIPTION FROM UNIVERSITY " + 
-							"INNER JOIN LANGUAGE INNER JOIN UNI_LANGUAGE " + 
+					sql = "SELECT UNIVERSITY.ID, UNIVERSITY.NAME, UNIVERSITY.CITY, UNIVERSITY.COUNTRY, " +
+							"UNIVERSITY.URL, UNIVERSITY.QUOTA, UNIVERSITY.DESCRIPTION FROM UNIVERSITY " +
+							"INNER JOIN LANGUAGE INNER JOIN UNI_LANGUAGE " +
 							"ON UNI_LANGUAGE.ID_LANGUAGE = LANGUAGE.ID WHERE LANGUAGE.NAME = '" + escapeHTML(escapeAccents(filter)) + "' " +
 							"AND UNI_LANGUAGE.ID_UNIVERSITY = UNIVERSITY.ID;";
 				} else if (column.equals("domain")) {
-					sql = "SELECT UNIVERSITY.ID, UNIVERSITY.NAME, UNIVERSITY.CITY, UNIVERSITY.COUNTRY, " + 
-							"UNIVERSITY.URL, UNIVERSITY.QUOTA, UNIVERSITY.DESCRIPTION FROM UNIVERSITY " + 
-							"INNER JOIN DOMAIN INNER JOIN UNI_DOMAIN " + 
+					sql = "SELECT UNIVERSITY.ID, UNIVERSITY.NAME, UNIVERSITY.CITY, UNIVERSITY.COUNTRY, " +
+							"UNIVERSITY.URL, UNIVERSITY.QUOTA, UNIVERSITY.DESCRIPTION FROM UNIVERSITY " +
+							"INNER JOIN DOMAIN INNER JOIN UNI_DOMAIN " +
 							"ON UNI_DOMAIN.ID_DOMAIN = DOMAIN.ID WHERE DOMAIN.NAME = '" + escapeHTML(escapeAccents(filter)) + "' " +
 							"AND UNI_DOMAIN.ID_UNIVERSITY = UNIVERSITY.ID;";
-				} 
+				}
 
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
@@ -146,16 +142,16 @@ public class DbDao {
 
 		return rsObj;
 	}
-	
-	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
-	public static ResultSet getLanguageList () {
+
+	/* Method #2 :: This Method Is Used To Retrieve The Records From The Database */
+	public static ResultSet getLanguageList() {
 			try {
 				stmtObj = connectDb().createStatement();
 
-				String sql = "SELECT UNI_LANGUAGE.ID_UNIVERSITY, LANGUAGE.NAME " + 
-						"from university INNER JOIN UNI_LANGUAGE " + 
-						"ON UNI_LANGUAGE.ID_UNIVERSITY = UNIVERSITY.ID " + 
-						"INNER JOIN LANGUAGE ON UNI_LANGUAGE.ID_LANGUAGE = LANGUAGE.ID " + 
+				String sql = "SELECT UNI_LANGUAGE.ID_UNIVERSITY, LANGUAGE.NAME " +
+						"from university INNER JOIN UNI_LANGUAGE " +
+						"ON UNI_LANGUAGE.ID_UNIVERSITY = UNIVERSITY.ID " +
+						"INNER JOIN LANGUAGE ON UNI_LANGUAGE.ID_LANGUAGE = LANGUAGE.ID " +
 						"ORDER BY ID_UNIVERSITY;";
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
@@ -163,15 +159,15 @@ public class DbDao {
 			}
 		return rsObj;
 	}
-	
-	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
-	public static ResultSet getFieldList () {
+
+	/* Method #2 :: This Method Is Used To Retrieve The Records From The Database */
+	public static ResultSet getFieldList() {
 			try {
 				stmtObj = connectDb().createStatement();
-				String sql = "SELECT UNI_DOMAIN.ID_UNIVERSITY, DOMAIN.NAME " + 
-						"from university INNER JOIN UNI_DOMAIN " + 
-						"ON UNI_DOMAIN.ID_UNIVERSITY = UNIVERSITY.ID " + 
-						"INNER JOIN DOMAIN ON UNI_DOMAIN.ID_DOMAIN = DOMAIN.ID " + 
+				String sql = "SELECT UNI_DOMAIN.ID_UNIVERSITY, DOMAIN.NAME " +
+						"from university INNER JOIN UNI_DOMAIN " +
+						"ON UNI_DOMAIN.ID_UNIVERSITY = UNIVERSITY.ID " +
+						"INNER JOIN DOMAIN ON UNI_DOMAIN.ID_DOMAIN = DOMAIN.ID " +
 						"ORDER BY ID_UNIVERSITY;";
 				rsObj = stmtObj.executeQuery(sql);
 			} catch (Exception exObj) {
@@ -179,9 +175,9 @@ public class DbDao {
 			}
 		return rsObj;
 	}
-	
-	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
-	public static ResultSet getAllLanguages () {
+
+	/* Method #2 :: This Method Is Used To Retrieve The Records From The Database */
+	public static ResultSet getAllLanguages() {
 			try {
 				stmtObj = connectDb().createStatement();
 
@@ -192,9 +188,9 @@ public class DbDao {
 			}
 		return rsObj;
 	}
-	
-	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
-	public static ResultSet getAllFields () {
+
+	/* Method #2 :: This Method Is Used To Retrieve The Records From The Database */
+	public static ResultSet getAllFields() {
 			try {
 				stmtObj = connectDb().createStatement();
 
@@ -206,7 +202,7 @@ public class DbDao {
 		return rsObj;
 	}
 
-	/***** Method #2 :: This Method Is Used To Insert The Records In The Database *****/
+	/* Method #2 :: This Method Is Used To Insert The Records In The Database */
 	public static void insertComment(String actualDate, String commentContent, String author_firstname, String author_lastname, String author_mail, String id_university) {
 		try {
 			stmtObj = connectDb().createStatement();
@@ -218,7 +214,7 @@ public class DbDao {
 			exObj.printStackTrace();
 		}
 	}
-	
+
 	public static void updateComment(String id) {
 		try {
 			stmtObj = connectDb().createStatement();
@@ -228,7 +224,7 @@ public class DbDao {
 			exObj.printStackTrace();
 		}
 	}
-	
+
 	public static void deleteComment(String id) {
 		try {
 			stmtObj = connectDb().createStatement();
@@ -239,18 +235,18 @@ public class DbDao {
 		}
 	}
 
-	public static ResultSet getComments(){
+	public static ResultSet getComments() {
 		try {
 			stmtObj = connectDb().createStatement();
 			String query = "SELECT * FROM ISEPXCHANGE.COMMENT";
 			rsObj = stmtObj.executeQuery(query);
-		} catch (Exception exception){
+		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
 		return rsObj;
 	}
-	
-	/***** Method #2 :: This Method Is Used To Insert The Records In The Database *****/
+
+	/* Method #2 :: This Method Is Used To Insert The Records In The Database */
 	public static void insertAlert(String actualDate, String authorMail, String reason, String comment, String IdUniversity) {
 		try {
 			stmtObj = connectDb().createStatement();
@@ -261,7 +257,7 @@ public class DbDao {
 			exObj.printStackTrace();
 		}
 	}
-	
+
 	public static void deleteAlert(String id) {
 		try {
 			stmtObj = connectDb().createStatement();
@@ -271,26 +267,26 @@ public class DbDao {
 			exObj.printStackTrace();
 		}
 	}
-	
-	public static ResultSet getAlerts(){
+
+	public static ResultSet getAlerts() {
 		try {
 			stmtObj = connectDb().createStatement();
 			String query = "SELECT * FROM isepxchange.alert";
 			rsObj = stmtObj.executeQuery(query);
-		} catch (Exception exception){
+		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
 		return rsObj;
 	}
-	
-	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
+
+	/* Method #2 :: This Method Is Used To Retrieve The Records From The Database */
 	public static ResultSet getStudentList(String column, String filter) {
 		if (filter.length() != 0) {
 			try {
 				stmtObj = connectDb().createStatement();
 
-				String sql = "SELECT student.ID, student.FIRSTNAME, student.LASTNAME, student.MAIL, university.NAME, university.COUNTRY, " + 
-						"student_exchange.START_DATE, student_exchange.END_DATE, " + 
+				String sql = "SELECT student.ID, student.FIRSTNAME, student.LASTNAME, student.MAIL, university.NAME, university.COUNTRY, " +
+						"student_exchange.START_DATE, student_exchange.END_DATE, " +
 						"university.URL FROM isepxchange.student INNER JOIN isepxchange.student_exchange INNER JOIN isepxchange.university ON "
 						+ "isepxchange.student_exchange.id_University = isepxchange.university.id "
 						+ "AND isepxchange.student_exchange.ID_STUDENT = isepxchange.student.id "
@@ -303,8 +299,8 @@ public class DbDao {
 			try {
 				stmtObj = connectDb().createStatement();
 
-				String sql = "SELECT student.ID, student.FIRSTNAME, student.LASTNAME, student.MAIL, university.NAME, university.COUNTRY, " + 
-						"student_exchange.START_DATE, student_exchange.END_DATE, " + 
+				String sql = "SELECT student.ID, student.FIRSTNAME, student.LASTNAME, student.MAIL, university.NAME, university.COUNTRY, " +
+						"student_exchange.START_DATE, student_exchange.END_DATE, " +
 						"university.URL FROM isepxchange.student INNER JOIN isepxchange.student_exchange INNER JOIN isepxchange.university ON "
 						+ "isepxchange.student_exchange.id_University = isepxchange.university.id "
 						+ "AND isepxchange.student_exchange.ID_STUDENT = isepxchange.student.id;";
@@ -316,8 +312,8 @@ public class DbDao {
 
 		return rsObj;
 	}
-	
-	/***** Method #2 :: This Method Is Used To Retrieve The Records From The Database *****/
+
+	/* Method #2 :: This Method Is Used To Retrieve The Records From The Database */
 	public static ResultSet getExchangeList(String column, String filter) {
 		if (filter.length() != 0) {
 			try {
@@ -341,36 +337,36 @@ public class DbDao {
 
 		return rsObj;
 	}
-	
-	public static boolean validate(String name,String password){  
-		boolean status=false;  
+
+	public static boolean validate(String name, String password) {
+		boolean status=false;
 		try {
 			stmtObj = connectDb().createStatement();
-			
-			PreparedStatement ps = connObj.prepareStatement("select * from isepxchange.admin where name=? and password=?");  
-			ps.setString(1, escapeHTML(escapeAccents(name)));  
-			ps.setString(2, escapeHTML(escapeAccents(password)));  
-			      
-			ResultSet rs=ps.executeQuery();  
-			status=rs.next();  	          
+
+			PreparedStatement ps = connObj.prepareStatement("select * from isepxchange.admin where name=? and password=?");
+			ps.setString(1, escapeHTML(escapeAccents(name)));
+			ps.setString(2, escapeHTML(escapeAccents(password)));
+
+			ResultSet rs=ps.executeQuery();
+			status=rs.next();
 		} catch(Exception e) {
 			System.out.println(e);
 		}
-		
-		return status;  
+
+		return status;
 	}
 
-	public static void updateUniversityInformation(String quota, String url, String information, String id){
-	    try{
+	public static void updateUniversityInformation(String quota, String url, String information, String id) {
+	    try {
 	        stmtObj = connectDb().createStatement();
 	        String query ="UPDATE isepxchange.university SET quota='"+escapeHTML(escapeAccents(quota))+"', url='"+escapeHTML(escapeAccents(url))+"', description='"+escapeHTML(escapeAccents(information))+"' WHERE id='"+id+"'";
 	        stmtObj.executeUpdate(query);
-        } catch (Exception exception){
+        } catch (Exception exception) {
 	        exception.printStackTrace();
         }
     }
 
-	/***** Method #3 :: This Method Is Used To Close The Connection With The Database *****/
+	/* Method #3 :: This Method Is Used To Close The Connection With The Database */
 	public static void disconnectDb() {
 		try {
 			rsObj.close();
@@ -378,6 +374,6 @@ public class DbDao {
 			connObj.close();
 		} catch (Exception exObj) {
 			exObj.printStackTrace();
-		}		
+		}
 	}
 }

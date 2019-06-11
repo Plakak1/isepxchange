@@ -13,7 +13,7 @@
 	allComments = (List<Comment>) request.getAttribute("allComments");
 	List<Alert> allAlerts = new ArrayList();
 	allAlerts = (List<Alert>) request.getAttribute("allAlerts");
-	
+
 	String tab = (String) request.getAttribute("currentTab");
 	int currentTab = Integer.valueOf(tab);
 %>
@@ -79,7 +79,7 @@
 				}
 			} %>
 		</div>
-		
+
 		<div id="reportTab">
 			<% if (allAlerts != null) {
 				for(Alert alert: allAlerts) {
